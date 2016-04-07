@@ -1,0 +1,88 @@
+{% extends "templates/main" %}
+{% block header %}<h2>AnsibleCellar</h2>{% end %}
+{% block content %}
+{% import datetime %}
+{% import re %}
+{% import ast %}
+{% import textwrap %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <label>Сейчас играет: </label>
+                    <label id="nowplay" name="nowplay"></label>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" id="player" style="border: solid 1px grey; height: 310px; width: 600px;"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <label>Дальше: </label>
+                    <label id="nextplay" name="nextplay"></label>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12" name="queue" id="queue">
+            </div>
+        </div>
+        <div class="row">
+			<form id="video">
+            <div class="col-md-8">
+                <input type="text" class="form-control" name="videoid" id="videoid" placeholder="videoid">
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-success">Send</button>
+            </div>
+			</form>
+        </div>
+		<br />
+        <div class="row">
+            <div class="col-md-12">
+				<div id="alerts"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4 col-md-offset-2" id="chat">
+        <div class="row">
+            <div class="col-md-12" name="chatframe" id="chatframe" style="border: solid 1px grey; overflow-y: hidden; word-wrap:break-word; height: 400px;">
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <form id="chat" onsubmit="return false;">
+                    <div class="form-group">
+                    <form role="form">
+                        <div class="col-sm-12">
+                            <textarea
+                                row=2
+                                class="form-control"
+                                name="msg"
+                                id="msg"
+                                placeholder="Текст сообщения..."
+                                title="Пиши свое сообщение сюда"
+                                autocomplete="off"
+                                maxlength=128
+                                onkeypress="if(event.ctrlKey && event.keyCode==13)chatSend();"
+                                style="resize: none; background: transparent;"></textarea>
+                        </div>
+                        <div class="col-sm-12">
+                        <button type="button" class="btn btn-success btn-block" onclick="chatSend();">Send</button>
+                        </div>
+                    </form>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/radio/main.js"></script>
+
+{% end %}

@@ -1,0 +1,40 @@
+{% extends "templates/main" %}
+{% block header %}<h2>AnsibleCellar</h2>{% end %}
+{% block content %}
+{% import datetime %}
+{% import re %}
+{% import ast %}
+{% import textwrap %}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2" id="chat">
+        <table class="table" id='queue'>
+            <thead>
+                <tr>
+                    <th>From:</th>
+                    <th>VideoID:</th>
+                    <th>VideoTitle:</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+  	<div class="form-group">
+    	<label class="sr-only" for="adminkey">AdminKey</label>
+    	<input type="password" class="form-control" name="adminkey" id="adminkey" placeholder="AdminKey">
+  	</div>
+  	<div class="form-group">
+    	<label class="sr-only" for="videoid">VideoID</label>
+    	<input class="form-control" name="videoid" id="videoid" placeholder="VideoID">
+  	</div>
+  	<button class="btn btn-warning" name="delete" onclick="videoDelete();">Удалить</button>
+  	<button class="btn btn-success" name="next" onclick="videoNext();">Играть</button>
+
+</div>
+</div>
+<script type="text/javascript" src="/js/radio/admin_main.js"></script>
+
+{% end %}
