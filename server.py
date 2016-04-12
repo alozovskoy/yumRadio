@@ -25,6 +25,12 @@ logging.basicConfig(level=logging.DEBUG,
                     datefmt='%d/%m/%Y %Hh%Mm%Ss',
                     filename='/tmp/radio.log')
 
+from modules import auth
+with open(serverDir + '/clientkey', 'r') as f:
+    auth.clientKey = f.readline().split()[0]
+with open(serverDir + '/clientsecret', 'r') as f:
+    auth.clientSecret = f.readline().split()[0]
+
 from modules import youtube
 youtube.serverDir = serverDir
 
@@ -53,40 +59,55 @@ timethread = Thread(target=threads.threadWatcher)
 timethread.setDaemon(True)
 timethread.start()
 
+templVars = {}
+
 class URIHandler(tornado.web.RequestHandler):
 
     def get(self):
         logging.info(self.request)
         try:
             page = self.request.uri.split('?')[0]
+            templVars['page'] = page
         except Exception, e:
             logging.error('ERROR: %s (%s)' % (e, Exception))
             page = '/' + self.request.uri
         if page == '/':
             page = 'index'
-        try:
-            pageVars = {}
-            global radio
-            currenttime = threads.gettime()
-            currentvideo = radio['qstack'].getCurrent()
-            pageVars['start'] = currenttime
-            pageVars['video'] = currentvideo
-            if page == '/favicon.ico':
-                self.set_status(404)
-                self.render(serverDir + '/templates/empty')
+            
+        if page.startswith('/login'):
+            if self.request.uri == '/login':
+                self.redirect(auth.getUserConfirm())
             else:
-                if not page.startswith('/js/'):
-                    self.render(serverDir + '/templates/' + page, **pageVars)
+                logging.info(self.request.uri)
+                resource = auth.getResource(self.request.uri)
+                userid = resource['id']
+                logging.info(userid)
+                self.redirect('/')
+                
+        else:
+            try:
+                pageVars = {}
+                global radio
+                currenttime = threads.gettime()
+                currentvideo = radio['qstack'].getCurrent()
+                pageVars['start'] = currenttime
+                pageVars['video'] = currentvideo
+                if page == '/favicon.ico':
+                    self.set_status(404)
+                    self.render(serverDir + '/templates/empty')
                 else:
-                    self.render(serverDir + '/static/' + page, **pageVars)
-            self.set_header('Connection', 'close')
-        except Exception, e:
-            logging.error('MainERROR: %s (%s)' % (e, Exception))
-            raise
-            self.set_status(404)
-            self.render(serverDir + '/templates/404', **templVars)
-            self.set_header('Connection', 'close')
-            return None
+                    if not page.startswith('/js/'):
+                        self.render(serverDir + '/templates/' + page, **pageVars)
+                    else:
+                        self.render(serverDir + '/static/' + page, **pageVars)
+                self.set_header('Connection', 'close')
+            except Exception, e:
+                logging.error('MainERROR: %s (%s)' % (e, Exception))
+                raise
+                self.set_status(404)
+                self.render(serverDir + '/templates/404', **templVars)
+                self.set_header('Connection', 'close')
+                return None
 
 from modules import ws
 ws.radio = radio
