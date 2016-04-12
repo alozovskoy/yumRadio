@@ -19,6 +19,11 @@
             <div class="col-md-12" id="player" style="border: solid 1px grey;"></div>
         </div>
         <div class="row">
+            <div class="progress">
+                <div class="progress-bar progress-bar-success" aria-valuemin="0" aria-valuemax="100" style="width: 40%" role="progressbar"></div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-12">
                 <p>
                     <label>Дальше: </label>
