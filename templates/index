@@ -39,14 +39,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    <label>Дальше: </label>
-                    <label id="nextplay" name="nextplay"></label>
-                </p>
-            </div>
-        </div>
+        <br />
         <div class="row">
 			<form id="video">
             <div class="col-md-6">
