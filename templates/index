@@ -25,6 +25,22 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-primary btn-block">Mute</button>
+                </div>
+                <div class="col-md-3">
+                    
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-danger btn-block">Dislike</button>
+                </div>
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-success btn-block">Like</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
                 <p>
                     <label>Дальше: </label>
                     <label id="nextplay" name="nextplay"></label>
