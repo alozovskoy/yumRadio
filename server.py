@@ -56,7 +56,6 @@ timethread.start()
 class URIHandler(tornado.web.RequestHandler):
 
     def get(self):
-        _startTime = time.time()
         logging.info(self.request)
         try:
             page = self.request.uri.split('?')[0]
