@@ -48,17 +48,27 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12" name="queue" id="queue">
-            </div>
-        </div>
-        <div class="row">
 			<form id="video">
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <input type="text" class="form-control" name="videoid" id="videoid" placeholder="videoid">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <button class="btn btn-success">Send</button>
             </div>
+            <div class="col-md-4 dropup">
+                <button 
+                    class="btn btn-default dropdown-toggle btn-block" 
+                    type="button" 
+                    data-toggle="dropdown" 
+                    aria-haspopup="true" 
+                    aria-expanded="true">
+                    Очередь
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu centerDropdown" id="queue" aria-labelledby="dropdownMenu1" style="width: 500px;">
+                </ul>
+            </div>
+            
 			</form>
         </div>
 		<br />
