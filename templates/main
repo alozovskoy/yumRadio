@@ -29,9 +29,12 @@
                 right: 45% !important;
             }
         </style>
-        <script type="text/javascript">
-            var timerStart = Date.now();
-        </script>
+        <style>
+            .row{
+                margin-top: 10px;
+                margin-bottom: 10px
+            }
+        </style>
 
     </head>
     <body>
