@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <div class="col-md-4 col-md-offset-2" id="chat">
+    <div class="col-md-5 col-md-offset-1" id="chat">
         <div class="row">
             <div class="col-md-12" name="chatframe" id="chatframe" style="border: solid 1px grey; overflow-y: hidden; word-wrap:break-word; height: 400px;">
             </div>
