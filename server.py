@@ -76,7 +76,7 @@ class URIHandler(tornado.web.RequestHandler):
                 self.set_status(404)
                 self.render(serverDir + '/templates/empty')
             else:
-                if not page.startswith('/js/radio/'):
+                if not page.startswith('/js/'):
                     self.render(serverDir + '/templates/' + page, **pageVars)
                 else:
                     self.render(serverDir + '/static/' + page, **pageVars)
@@ -96,9 +96,6 @@ ws.threads = threads
 ws.serverDir = serverDir
 
 application = tornado.web.Application([
-    (r'/css/(.*)', tornado.web.StaticFileHandler, {'path': serverDir + '/static/css/'}),
-    (r'/js/radio/.*', URIHandler),
-    (r'/js/(.*)', tornado.web.StaticFileHandler, {'path': serverDir + '/static/js/'}),
     (r'/ws', ws.WebSocketHandler),
     (r'.*', URIHandler),
 ],
