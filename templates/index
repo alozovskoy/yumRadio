@@ -32,10 +32,10 @@
                     
                 </div>
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-danger btn-block">Dislike</button>
+                    <button type="button" class="btn btn-danger btn-block" onclick="sendOpinion('dislike');">Dislike</button>
                 </div>
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-success btn-block">Like</button>
+                    <button type="button" class="btn btn-success btn-block" onclick="sendOpinion('like');">Like</button>
                 </div>
             </div>
         </div>

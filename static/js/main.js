@@ -4,5 +4,6 @@
 {% include static/js/youtube.js %}
 {% include static/js/chat.js %}
 {% include static/js/video.js %}
+{% include static/js/opinion.js %}
 {% include static/js/alert.js %}
 {% include static/js/ws.js %}

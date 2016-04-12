@@ -70,6 +70,9 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
     def ping(self, data):
         self.send_one({ 'type' : 'ping', 'action' : 'pong' })
+        
+    def opinion(self, data):
+        pass
 
     def open(self):
         WebSocketHandler.connections.add(self)
@@ -81,7 +84,8 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         actions = {
             'chat':     self.chat,
             'video':    self.video,
-            'ping':     self.ping
+            'ping':     self.ping,
+            'opinion':  self.opinion,
         }
         global radio
         data = json.loads(msg)
