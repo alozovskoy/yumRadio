@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12" id="player" style="border: solid 1px grey; height: 310px; width: 600px;"></div>
+            <div class="col-md-12" id="player" style="border: solid 1px grey;"></div>
         </div>
         <div class="row">
             <div class="col-md-12">
