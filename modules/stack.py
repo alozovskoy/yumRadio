@@ -87,7 +87,7 @@ class Stack(object):
 
     def get(self):
         data = {}
-        for i in enumerate(self.items.keys()):
+        for i in enumerate(self.itemsList):
             _data = { 'item' : i[1], 'name' : self.items[i[1]]['name'], 'duration' : self.items[i[1]]['duration'] }
             data[i[0]] = json.dumps(_data)
         return json.dumps(data)
