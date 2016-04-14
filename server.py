@@ -46,6 +46,9 @@ radio['qstack'].youtube = youtube
 radio['qstack'].push('ldK1gQSSTSo')
 radio['qstack'].pop()
 
+from modules import userstack
+radio['ustack'] = userstack.Stack()
+
 radio['currenttime'] = 0
 radio['currentvideo'] = radio['qstack'].first()
 
@@ -65,6 +68,7 @@ class URIHandler(tornado.web.RequestHandler):
 
     def get(self):
         logging.info(self.request)
+        global radio
         try:
             page = self.request.uri.split('?')[0]
             templVars['page'] = page
@@ -78,36 +82,42 @@ class URIHandler(tornado.web.RequestHandler):
             if self.request.uri == '/login':
                 self.redirect(auth.getUserConfirm())
             else:
+                logging.info('google')
                 logging.info(self.request.uri)
                 resource = auth.getResource(self.request.uri)
                 userid = resource['id']
-                logging.info(userid)
+                sessionid = radio['ustack'].push(userid)
+                self.set_secure_cookie('userid', userid)
+                self.set_secure_cookie('sessionid', sessionid)
                 self.redirect('/')
-                
+                return
         else:
-            try:
-                pageVars = {}
-                global radio
-                currenttime = threads.gettime()
-                currentvideo = radio['qstack'].getCurrent()
-                pageVars['start'] = currenttime
-                pageVars['video'] = currentvideo
-                if page == '/favicon.ico':
-                    self.set_status(404)
-                    self.render(serverDir + '/templates/empty')
-                else:
-                    if not page.startswith('/js/'):
-                        self.render(serverDir + '/templates/' + page, **pageVars)
+            if not self.get_secure_cookie('sessionid') or not self.get_secure_cookie('userid') or self.get_secure_cookie('sessionid') != radio['ustack'].getCookie(self.get_secure_cookie('userid')):
+                self.redirect('/login')
+                return
+            else:
+                try:
+                    pageVars = {}
+                    currenttime = threads.gettime()
+                    currentvideo = radio['qstack'].getCurrent()
+                    pageVars['start'] = currenttime
+                    pageVars['video'] = currentvideo
+                    if page == '/favicon.ico':
+                        self.set_status(404)
+                        self.render(serverDir + '/templates/empty')
                     else:
-                        self.render(serverDir + '/static/' + page, **pageVars)
-                self.set_header('Connection', 'close')
-            except Exception, e:
-                logging.error('MainERROR: %s (%s)' % (e, Exception))
-                raise
-                self.set_status(404)
-                self.render(serverDir + '/templates/404', **templVars)
-                self.set_header('Connection', 'close')
-                return None
+                        if not page.startswith('/js/'):
+                            self.render(serverDir + '/templates/' + page, **pageVars)
+                        else:
+                            self.render(serverDir + '/static/' + page, **pageVars)
+                    self.set_header('Connection', 'close')
+                except Exception, e:
+                    logging.error('MainERROR: %s (%s)' % (e, Exception))
+                    raise
+                    self.set_status(404)
+                    self.render(serverDir + '/templates/404', **templVars)
+                    self.set_header('Connection', 'close')
+                    return None
 
 from modules import ws
 ws.radio = radio
@@ -120,6 +130,7 @@ application = tornado.web.Application([
     (r'.*', URIHandler),
 ],
     debug=True,
+    cookie_secret="nieg+eiy8Aeki,a7faeferuh"
 )
 
 
