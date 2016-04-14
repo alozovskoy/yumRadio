@@ -83,6 +83,12 @@ ws.onmessage = function (evt) {
             printOpinion(data['likeCount'], data['dislikeCount']);
             break
             
+        case 'auth':
+            if (data['action'] == 'reauth'){
+                location.reload();
+            }
+            break
+            
 		default:
 			console.log('Error - type = ' + type);
 	}

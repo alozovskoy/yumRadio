@@ -110,6 +110,8 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             logging.info(data)
             if data['type'] and data['type'] in actions.keys():
                 actions[data['type']](data)
+        else:
+            self.send_one({'type' : 'auth', 'action' : 'reauth' })
     def send_all(self, message):
         for conn in self.connections:
             conn.write_message(message)
