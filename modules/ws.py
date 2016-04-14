@@ -81,18 +81,18 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         WebSocketHandler.connections.remove(self)
 
     def on_message(self, msg):
-        actions = {
-            'chat':     self.chat,
-            'video':    self.video,
-            'ping':     self.ping,
-            'opinion':  self.opinion,
-        }
-        global radio
         data = json.loads(msg)
-        logging.info(data)
-        if data['type'] and data['type'] in actions.keys():
-            actions[data['type']](data)
-
+        if data['sessionid'] == radio['ustack'].getCookie(data['userid']):
+            actions = {
+                'chat':     self.chat,
+                'video':    self.video,
+                'ping':     self.ping,
+                'opinion':  self.opinion,
+            }
+            global radio
+            logging.info(data)
+            if data['type'] and data['type'] in actions.keys():
+                actions[data['type']](data)
     def send_all(self, message):
         for conn in self.connections:
             conn.write_message(message)

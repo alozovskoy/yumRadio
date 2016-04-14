@@ -17,7 +17,11 @@ $wsStatus.attr("class", 'btn btn-danger navbar-btn');
 
 function sendMessage(msg){
     waitForSocketConnection(ws, function(){
-        ws.send(msg);
+        var _msg = JSON.parse(msg);
+        _msg['userid'] = getCookie('userid');
+        _msg['sessionid'] = getCookie('sessionid');
+        dataToSend = JSON.stringify(_msg);
+        ws.send(dataToSend);
     });
 }
 
