@@ -32,7 +32,7 @@ class Stack(object):
             return False
         
         
-    def getOpinion(self):
+    def getOpinions(self):
         return self.items[self.current]['opinions']
 
     def getTime(self, item):

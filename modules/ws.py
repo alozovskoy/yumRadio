@@ -87,7 +87,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             self.send_one({'type': 'alert', 'action' : 'placeAlert', 'status': status, 'msg': msg})
             return None
         if data['action'] == 'check':
-            opinions = radio['qstack'].getOpinion()
+            opinions = radio['qstack'].getOpinions()
             self.send_one({'type' : 'opinion', 'likeCount' : len(opinions['like']), 'dislikeCount' : len(opinions['dislike'])})
             return None
 
