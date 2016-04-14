@@ -19,6 +19,9 @@ from threading import Thread
 
 
 serverDir = str(os.path.abspath(os.path.dirname(sys.argv[0])))
+listenPort = 443
+listenName = 'localhost'
+
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)-8s - %(message)s',
@@ -30,6 +33,8 @@ with open(serverDir + '/clientkey', 'r') as f:
     auth.clientKey = f.readline().split()[0]
 with open(serverDir + '/clientsecret', 'r') as f:
     auth.clientSecret = f.readline().split()[0]
+    
+auth.callbackURL = 'https://%s/login' % listenName
 
 from modules import youtube
 youtube.serverDir = serverDir
@@ -133,7 +138,9 @@ application = tornado.web.Application([
     cookie_secret="nieg+eiy8Aeki,a7faeferuh"
 )
 
+ssl_options = { "certfile": serverDir + '/ssl/ssl.crt', "keyfile": serverDir + '/ssl/ssl.key' }
 
 if __name__ == "__main__":
-    application.listen(3000)
+    http_server = tornado.httpserver.HTTPServer(application, ssl_options = ssl_options)
+    http_server.listen(listenPort)
     tornado.ioloop.IOLoop.instance().start()

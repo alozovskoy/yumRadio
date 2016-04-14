@@ -8,8 +8,6 @@ from urlparse import parse_qsl, urlparse
 import random
 
 
-callbackURL = 'http://localhost:3000/login'
-
 authURL = 'https://accounts.google.com/o/oauth2/auth'
 accessURL = 'https://www.googleapis.com/oauth2/v3/token'
 apiURL = 'https://www.googleapis.com/oauth2/v1/userinfo'
