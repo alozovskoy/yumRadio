@@ -45,7 +45,7 @@ class Stack(object):
             return False
 
     def size(self):
-        return len(self.itemsList)
+        return len(self.items)
 
     def delete(self, item):
         self.items.pop(item, None)
