@@ -67,6 +67,11 @@ timethread = Thread(target=threads.threadWatcher)
 timethread.setDaemon(True)
 timethread.start()
 
+likethread = Thread(target=threads.likeWatcher)
+likethread.setDaemon(True)
+likethread.start()
+
+
 templVars = {}
 
 class URIHandler(tornado.web.RequestHandler):

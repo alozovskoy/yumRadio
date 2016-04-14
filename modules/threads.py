@@ -39,3 +39,16 @@ def threadWatcher():
                 break
         if radio['qstack'].getCurrent() == videoID:
             radio['qstack'].pop()
+
+def likeWatcher():
+    global radio
+    while True:
+        opinions = radio['qstack'].getOpinions()
+        userCount = radio['ustack'].size()
+        if userCount:
+            if float(len(opinions['dislike'])) * 100 / float( int(userCount) + int(len(opinions['like'])) )  > 50:
+                radio['qstack'].pop()
+        time.sleep(1)
+
+    
+    
