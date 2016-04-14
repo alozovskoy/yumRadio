@@ -19,6 +19,22 @@ class Stack(object):
     def getCurrent(self):
         return self.current
 
+    def setOpinion(self, opinion, userid):
+        anotherOpinion = 'dislike' if opinion == 'like' else 'like'
+        if userid not in self.items[self.current]['opinions'][opinion]:
+            self.items[self.current]['opinions'][opinion].append(userid)
+            try:
+                self.items[self.current]['opinions'][anotherOpinion].remove(userid)
+            except ValueError:
+                pass
+            return True
+        else:
+            return False
+        
+        
+    def getOpinion(self):
+        return self.items[self.current]['opinions']
+
     def getTime(self, item):
         if item in self.items.keys():
             return self.items[item]['duration']
@@ -37,6 +53,7 @@ class Stack(object):
                 self.itemsList.append(str(item))
                 self.items[str(item)]['name'] = title
                 self.items[str(item)]['duration'] = int(isodate.parse_duration(duration).total_seconds())
+                self.items[str(item)]['opinions'] = { 'like' : [] , 'dislike' : [] }
                 return True
             else:
                 return False

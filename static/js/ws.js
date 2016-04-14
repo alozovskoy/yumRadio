@@ -78,7 +78,11 @@ ws.onmessage = function (evt) {
             parsedLatency = parseInt(latency / 1000)
             console.log('latency: ' + latency + ', ' + parsedLatency );
             break
-		
+
+		case 'opinion':
+            printOpinion(data['likeCount'], data['dislikeCount']);
+            break
+            
 		default:
 			console.log('Error - type = ' + type);
 	}

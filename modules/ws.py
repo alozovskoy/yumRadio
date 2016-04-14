@@ -72,7 +72,24 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         self.send_one({ 'type' : 'ping', 'action' : 'pong' })
         
     def opinion(self, data):
-        pass
+        global radio
+        if data['action'] == 'set':
+            if data['opinion'] not in ['like', 'dislike']:
+                status = 'danger'
+                msg = 'Нет такого мнения, скорее всего ты отправил что-то руками в обход предложенного кода'
+            else:
+                if radio['qstack'].setOpinion(data['opinion'], data['userid']):
+                    status = 'success'
+                    msg = 'Твое мнение учтено'
+                else:
+                    status = 'warning'
+                    msg = 'Твой голос за этот трек уже учтен'
+            self.send_one({'type': 'alert', 'action' : 'placeAlert', 'status': status, 'msg': msg})
+            return None
+        if data['action'] == 'check':
+            opinions = radio['qstack'].getOpinion()
+            self.send_one({'type' : 'opinion', 'likeCount' : len(opinions['like']), 'dislikeCount' : len(opinions['dislike'])})
+            return None
 
     def open(self):
         WebSocketHandler.connections.add(self)
@@ -82,6 +99,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
     def on_message(self, msg):
         data = json.loads(msg)
+        global radio
         if data['sessionid'] == radio['ustack'].getCookie(data['userid']):
             actions = {
                 'chat':     self.chat,
@@ -89,7 +107,6 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 'ping':     self.ping,
                 'opinion':  self.opinion,
             }
-            global radio
             logging.info(data)
             if data['type'] and data['type'] in actions.keys():
                 actions[data['type']](data)

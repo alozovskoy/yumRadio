@@ -33,11 +33,17 @@
                 <div class="col-md-3">
                     
                 </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-danger btn-block" onclick="sendOpinion('dislike');">Dislike</button>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-danger btn-block" onclick="sendOpinion('dislike');" title="Дислайкнуть">&darr;</button>
                 </div>
-                <div class="col-md-3">
-                    <button type="button" class="btn btn-success btn-block" onclick="sendOpinion('like');">Like</button>
+                <div class="col-md-1">
+                    <span id="dislikeCount" class="text-danger">0</span>
+                </div>
+                <div class="col-md-1">
+                    <span id="likeCount" class="text-success">0</span>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" class="btn btn-success btn-block" onclick="sendOpinion('like');" title="Лайкнуть">&uarr;</button>
                 </div>
             </div>
         </div>
