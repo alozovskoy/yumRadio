@@ -92,12 +92,12 @@ class URIHandler(tornado.web.RequestHandler):
                 resource = auth.getResource(self.request.uri)
                 userid = resource['id']
                 sessionid = radio['ustack'].push(userid)
-                self.set_secure_cookie('userid', userid)
-                self.set_secure_cookie('sessionid', sessionid)
+                self.set_cookie('userid', userid)
+                self.set_cookie('sessionid', sessionid)
                 self.redirect('/')
                 return
         else:
-            if not self.get_secure_cookie('sessionid') or not self.get_secure_cookie('userid') or self.get_secure_cookie('sessionid') != radio['ustack'].getCookie(self.get_secure_cookie('userid')):
+            if not self.get_cookie('sessionid') or not self.get_cookie('userid') or self.get_cookie('sessionid') != radio['ustack'].getCookie(self.get_cookie('userid')):
                 self.redirect('/login')
                 return
             else:
