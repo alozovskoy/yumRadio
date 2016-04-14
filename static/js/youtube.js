@@ -79,3 +79,13 @@ setInterval(videoGetNext, 1000);
 setInterval(checkCurrentVideo, 1000);
 setInterval(checkCurrentTime, 1000);
 }
+
+function muteToggle(){
+    if (player.isMuted()){
+        player.unMute();
+        $('#muteButton').text('Mute');
+    } else {
+        player.mute();
+        $('#muteButton').text('unMute');
+    }
+}
