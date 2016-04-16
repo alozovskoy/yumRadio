@@ -1,0 +1,25 @@
+{% extends "templates/main" %}
+{% block content%}
+<div class="row">
+    <div class="col-md-8">
+        <p>
+            <b> Твой ID: </b><span id="userid"></span>
+        </p>
+        
+        <p>
+            <b> Идентификатор твоей сессии: </b><span id="sessionid"></span>
+        </p>
+    </div>
+    <div class="col-md-4">
+    
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-block btn-warning" onclick="logout();">ВЫЙТИ</bitton>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/main.js"></script>
+{% end %}
+
