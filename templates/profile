@@ -2,24 +2,32 @@
 {% block content%}
 <div class="row">
     <div class="col-md-8">
-        <p>
-            <b> Твой ID: </b><span id="userid"></span>
-        </p>
-        
-        <p>
-            <b> Идентификатор твоей сессии: </b><span id="sessionid"></span>
-        </p>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <b> Твой ID: </b><samp><span id="userid" style="word-wrap: break-word;"></span></samp>
+                </p>
+                
+                <p>
+                    <b> Идентификатор твоей сессии: </b><samp><span id="sessionid" style="word-wrap: break-word;"></span></samp>
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <button class="btn btn-block btn-warning" onclick="logoutThis();">Выйти из текущей сесии</bitton>
+                <button class="btn btn-block btn-danger" onclick="logoutAll();">Выйти из всех сессий</bitton>
+            </div>
+        </div>
     </div>
     <div class="col-md-4">
     
-    </div>
-</div>
+</div
 <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-block btn-warning" onclick="logout();">ВЫЙТИ</bitton>
+        <div id="alerts"></div>
     </div>
-</div>
-
-<script type="text/javascript" src="/js/main.js"></script>
+</div>    
+<script type="text/javascript" src="/js/profile.js"></script>
 {% end %}
 

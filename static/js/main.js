@@ -6,5 +6,4 @@
 {% include static/js/video.js %}
 {% include static/js/opinion.js %}
 {% include static/js/alert.js %}
-{% include static/js/profile.js %}
 {% include static/js/ws.js %}

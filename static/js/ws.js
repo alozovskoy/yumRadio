@@ -88,6 +88,10 @@ ws.onmessage = function (evt) {
                 location.reload();
             }
             break
+        
+        case 'session':
+            placeAlert('success', data['msg']);
+            break
             
 		default:
 			console.log('Error - type = ' + type);

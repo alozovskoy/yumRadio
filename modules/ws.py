@@ -91,6 +91,13 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             self.send_one({'type' : 'opinion', 'likeCount' : len(opinions['like']), 'dislikeCount' : len(opinions['dislike'])})
             return None
 
+    def session(self, data):
+        global radio
+        if data['action'] == 'dropsession':
+            radio['ustack'].delete(data['userid'])
+            self.send_one({'type' : 'session', 'msg' : 'Все клиенты отключены'})
+            return None
+
     def open(self):
         WebSocketHandler.connections.add(self)
 
@@ -106,6 +113,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 'video':    self.video,
                 'ping':     self.ping,
                 'opinion':  self.opinion,
+                'session':  self.session,
             }
             logging.info(data)
             if data['type'] and data['type'] in actions.keys():
