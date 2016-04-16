@@ -1,5 +1,11 @@
 {% extends "templates/main" %}
-{% block header %}<h2>AnsibleCellar</h2>{% end %}
+{% block header %}
+    <form class="navbar-form" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" name="username" id="username" title="Как вас представить?" value="anonimous" onkeypress="if(event.keyCode==13){ return false;}"></input>
+        </div>
+    </form>
+{% end %}
 {% block content %}
 {% import datetime %}
 {% import re %}

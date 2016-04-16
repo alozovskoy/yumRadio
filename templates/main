@@ -52,16 +52,8 @@
           <a class="navbar-brand" id="wsStatus" name="wsStatus" href="/">Radio</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-<!--          <ul class="nav navbar-nav">
-            <li><a href="/login">Залогиниться</a></li>
-            <li><a href="/add">Предложить трек</a></li>
-          </ul> -->
         <div class="nav navbar-nav navbar-right">
-            <form class="navbar-form" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="username" id="username" title="Как вас представить?" value="anonimous" onkeypress="if(event.keyCode==13){ return false;}"></input>
-                </div>
-            </form>
+            {% block header %}{% end %}
         </div>
       </div>
     </nav>
