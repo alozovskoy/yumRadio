@@ -18,19 +18,26 @@
             <div class="col-md-12" id="player" style="border-radius: 5px;  padding: 10px; background: #1e1e1e;"></div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-8">
+            <div class="progress">
+                <div id="playProgress" class="progress-bar progress-bar-success" aria-valuemin="0" aria-valuemax="100" style="width: 0%" role="progressbar"></div>
+            </div>
+            </div>
+            <div class="col-md-4">
                 <p>
-                    <b>Сейчас играет:</b> <span id="currentVideo"></span> (<span id="currentTime"></span>)
+                    <span id="currentTime"></span>
                 </p>
             </div>
         </div>
-        
-        <!--<div class="row">
-            <div class="progress">
-                <div class="progress-bar progress-bar-success" aria-valuemin="0" aria-valuemax="100" style="width: 40%" role="progressbar"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <p>
+                    <b>Сейчас играет:</b> <span id="currentVideo"></span>
+                </p>
             </div>
-        </div>-->
-        
+        </div>
+       
+       
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-3">

@@ -57,13 +57,23 @@ function StartVideo(){
     }
     
     function nowPlay(){
-        var hours;
+        var currentTime = currentTimeOnClient;
         if (currentTimeOnClient > 3600){
-            hours = true;
+            hoursClient = true;
         } else {
-            hours = false;
+            hoursClient = false;
         }
-        $('#currentTime').text(toFormattedTime(currentTimeOnClient, hours, false))
+        
+        totalTime = parseInt(player.getDuration())
+        
+        if (totalTime > 3600){
+            hoursTotal = true;
+        } else {
+            hoursTotal = false;
+        }
+        var percent = parseInt(currentTime / totalTime * 100 );
+        $('#currentTime').text(toFormattedTime(currentTime, hoursClient, false) + ' / ' + toFormattedTime(totalTime, hoursTotal, false));
+        $('#playProgress').css('width', percent + '%');
         return false;
     };
     
