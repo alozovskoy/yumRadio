@@ -43,6 +43,7 @@ function StartVideo(){
 
     function nowPlayTitle(){
         currentVideoTitle = player.getVideoData().title;
+        $('#currentVideo').text(currentVideoTitle);
         return false;
     };
     
@@ -56,7 +57,13 @@ function StartVideo(){
     }
     
     function nowPlay(){
-        $('#nowplay').text( currentVideoTitle + ', ' + toFormattedTime(currentTimeOnClient, false, false) + '(' +  toFormattedTime(currentTimeOnServer, false, false) + ')')
+        var hours;
+        if (currentTimeOnClient > 3600){
+            hours = true;
+        } else {
+            hours = false;
+        }
+        $('#currentTime').text(toFormattedTime(currentTimeOnClient, hours, false))
         return false;
     };
     

@@ -36,7 +36,7 @@ function wsOnQueue(data){
 		for (var key = 0; key < Object.keys(queue).length ; key++) {
 			var item = JSON.parse(queue[key]);
 			time = parseInt(item['duration'])
-			tableData += '<tr><td>NaN</td><td>' + item['name'] + ', ' + toFormattedTime(time, false, false)  + '</td></tr>'
+			tableData += '<tr><td>NaN</td><td>' + item['name'] + ', ' + toFormattedTime(time, true, false)  + '</td></tr>'
 		}
 	}
 	else {

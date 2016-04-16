@@ -20,8 +20,7 @@
         <div class="row">
             <div class="col-md-12">
                 <p>
-                    <label>Сейчас играет: </label>
-                    <label id="nowplay" name="nowplay"></label>
+                    <b>Сейчас играет:</b> <span id="currentVideo"></span> (<span id="currentTime"></span>)
                 </p>
             </div>
         </div>
