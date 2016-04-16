@@ -14,6 +14,7 @@ import re
 import time
 import datetime
 import os
+import hashlib
 
 from threading import Thread
 
@@ -98,7 +99,7 @@ class URIHandler(tornado.web.RequestHandler):
                 logging.info('google')
                 logging.info(self.request.uri)
                 resource = auth.getResource(self.request.uri)
-                userid = resource['id']
+                userid = hashlib.sha512(resource['id']).hexdigest()
                 sessionid = radio['ustack'].push(userid)
                 self.set_cookie('userid', userid)
                 self.set_cookie('sessionid', sessionid)
