@@ -90,7 +90,10 @@ class URIHandler(tornado.web.RequestHandler):
             
         if page.startswith('/login'):
             if self.request.uri == '/login':
-                self.redirect(auth.getUserConfirm())
+                templVars['target'] = auth.getUserConfirm()
+                logging.info(templVars)
+                self.set_status(200)
+                self.render(serverDir + '/templates/login', **templVars)
             else:
                 logging.info('google')
                 logging.info(self.request.uri)
