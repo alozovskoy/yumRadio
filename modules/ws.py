@@ -15,11 +15,27 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             if 'msg' in data.keys() and data['msg'] and 'user' in data.keys():
                 user = data['user'].strip()[0:15] if data['user'] else 'anonimous'
                 msg = data['msg'].strip()[0:128]
+                radio['ustack'].appendName(data['userid'], user)
                 self.send_all({
                     'type': 'chat',
                     'action': 'getMsg',
                     'name': user,
                     'msg': msg})
+        return None
+        
+    def users(self, data):
+        if 'adminkey' in data.keys():
+            with open(serverDir + '/adminkey', 'r') as f:
+                adminkey = f.readline().split()[0]
+            if data['adminkey'] == adminkey:
+                if data['action'] == 'getUsers':
+                    self.send_one({
+                        'type':     'users',
+                        'action':   'getUsers',
+                        'users':    radio['ustack'].get()})
+                if data['action'] == 'deleteUser':
+                    radio['ustack'].delete(data['user'])
+                    
         return None
 
     def video(self, data):
@@ -150,6 +166,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 'ping':     self.ping,
                 'opinion':  self.opinion,
                 'session':  self.session,
+                'users':    self.users,
             }
             logging.info(data)
             if data['type'] and data['type'] in actions.keys():

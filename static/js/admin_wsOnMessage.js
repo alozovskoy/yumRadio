@@ -1,25 +1,11 @@
 ws.onmessage = function (evt) {
     var data = JSON.parse(evt.data)
-    
-    //console.log(data)
-    
+     
     var type = data['type']
 	var action = data['action']
 	
 	switch (type){
-		
-		case 'chat':
-			switch (action){
 				
-				case 'getMsg':
-					chatGetMessage(data['name'], data['msg'])
-					break
-				
-				default:
-					console.log('Error in chat - action = ' + action);
-			}
-			break
-			
 		case 'alert':
 			switch (action){
 				
@@ -37,10 +23,6 @@ ws.onmessage = function (evt) {
 		case 'video':
 			switch (action){
 					
-				case 'next':
-					$('#nextplay').text(data['title'])
-					break
-
 				case 'currentvideo':
 					$('#current').text(data['videoid'])
 					currentVideoOnServer = data['videoid']
@@ -50,41 +32,27 @@ ws.onmessage = function (evt) {
 				case 'getQueue':
 					wsOnQueue(data['queue'])
 					break
-					
-				case 'play':
-					player.loadVideoById(
-					{
-						'videoId': data['videoid'], 
-						'startSeconds': data['start'], 
-						'suggestedQuality': "large"
-					})
-					break
-					
+								
 				default:
 					console.log('Error in video - action = ' + action)
 			}
 			break
-            
-        case 'ping':
-            latency = Date.now() - pingStartTime;
-            parsedLatency = parseInt(latency / 1000)
-            console.log('latency: ' + latency + ', ' + parsedLatency );
-            break
-
-		case 'opinion':
-            printOpinion(data['likeCount'], data['dislikeCount']);
-            break
-            
+                     
         case 'auth':
             if (data['action'] == 'reauth'){
                 location.reload();
             }
             break
-        
-        case 'session':
-            placeAlert('success', data['msg']);
-            break
-            
+                        
+        case 'users':
+            switch (action){
+                
+                case 'getUsers':
+                    wsOnUsers(data['users']);
+                    break                
+            }
+            break 
+                      
 		default:
 			console.log('Error - type = ' + type);
 	}

@@ -36,7 +36,7 @@ class Stack(object):
             return self.items[str(item)]['cookie']
 
     def appendName(self, item, name):
-        if item in items.keys():
+        if item in self.items.keys():
             if name not in self.items[str(item)]['names']:
                 self.items[str(item)]['names'].append(name)
                 return True
