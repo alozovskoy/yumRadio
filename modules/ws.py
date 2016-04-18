@@ -138,10 +138,11 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             return None
         if data['action'] == 'check':
             opinions = radio['qstack'].getOpinions()
-            self.send_one({
-                'type': 'opinion',
-                'likeCount': len(opinions['like']),
-                'dislikeCount': len(opinions['dislike'])})
+            if opinions:
+                self.send_one({
+                    'type': 'opinion',
+                    'likeCount': len(opinions['like']),
+                    'dislikeCount': len(opinions['dislike'])})
             return None
 
     def session(self, data):
@@ -172,6 +173,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             }
             logging.info(data)
             if data['type'] and data['type'] in actions.keys():
+                logging.info('DATA %s' % str(data))
                 actions[data['type']](data)
         else:
             self.send_one({'type': 'auth', 'action': 'reauth'})

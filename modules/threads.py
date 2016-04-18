@@ -30,18 +30,24 @@ def threadWatcher():
     while True:
         videoID = radio['qstack'].getCurrent()
         videoTime = None
-        while not videoTime:
-            videoTime = radio['qstack'].getTime(videoID)
+        if not videoID:
+            while radio['qstack'].isEmpty():
+                time.sleep(0.1)
+            radio['qstack'].pop()
+            continue
+        videoTime = radio['qstack'].getTime(videoID)
+        if not videoTime:
+            time.sleep(1)
+            continue
         _time = 0
         while _time < videoTime:
             if radio['qstack'].getCurrent() == videoID:
+                writelog(currenttime)
                 time.sleep(0.1)
                 _time += 0.1
                 currenttime = int(_time)
             else:
-                currenttime = 0
                 break
-        currenttime = 0
         if radio['qstack'].getCurrent() == videoID:
             radio['qstack'].pop()
 
@@ -51,7 +57,7 @@ def likeWatcher():
     while True:
         opinions = radio['qstack'].getOpinions()
         userCount = radio['ustack'].size()
-        if userCount:
+        if userCount and opinions:
             dislikeCount = float(len(opinions['dislike']))
             likeCount = float(int(userCount) + int(len(opinions['like'])))
             if (dislikeCount * 100 / likeCount) > 50:

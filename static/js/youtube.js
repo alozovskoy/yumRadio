@@ -3,6 +3,8 @@ var currentTimeOnClient = "{{ start }}";
 var currentVideoOnServer = "{{ video }}";
 var currentTimeOnServer = "{{ start }}";
 
+var playerHeight;
+
 var currentVideoTitle = '';
 
 var tag = document.createElement('script');
@@ -57,6 +59,13 @@ function StartVideo(){
     }
     
     function nowPlay(){
+        
+        if (currentVideoOnClient){
+        currentTimeOnClient = parseInt(player.getCurrentTime());
+        } else {
+            currentTimeOnClient = 0;
+        }
+        
         var currentTime = currentTimeOnClient;
         if (currentTimeOnClient > 3600){
             hoursClient = true;
@@ -71,7 +80,11 @@ function StartVideo(){
         } else {
             hoursTotal = false;
         }
-        var percent = parseInt(currentTime / totalTime * 100 );
+        if (currentTime != 0){
+            var percent = parseInt(currentTime / totalTime * 100 );
+        } else {
+            percent = 0;
+        }
         $('#currentTime').text(toFormattedTime(currentTime, hoursClient, false) + ' / ' + toFormattedTime(totalTime, hoursTotal, false));
         $('#playProgress').css('width', percent + '%');
         return false;
@@ -89,13 +102,35 @@ function StartVideo(){
             currentTimeOnClient = currentTimeOnServer;
     }
     
+    function getPlayerHeight(){
+        var height = $('#player').height();
+        if (height){
+            playerHeight = height;
+        }
+    };
+
 setInterval(nowPlay, 1000);
 setInterval(nowPlayTitle, 1000);
 setInterval(videoGetCurrent, 1000);
 setInterval(videoGetNext, 1000);
 setInterval(checkCurrentVideo, 1000);
 setInterval(checkCurrentTime, 1000);
+setInterval(getPlayerHeight, 1000);
 }
+
+function checkVideoPlaceholder(){
+    if ( currentVideoOnClient ){
+        $('#player').show();
+        $('#playerPlaceholder').hide();
+    } else {
+        $('#playerPlaceholder').css('height', playerHeight);
+        $('#player').hide();
+        $('#playerPlaceholder').show();      
+    }
+}
+
+checkVideoPlaceholder();
+setInterval(checkVideoPlaceholder, 500);
 
 function muteToggle(){
     if (player.isMuted()){
