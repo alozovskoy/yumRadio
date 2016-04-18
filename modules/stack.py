@@ -4,12 +4,14 @@
 import isodate
 import json
 
+
 class Stack(object):
+
     def __init__(self):
         self.items = {}
         self.itemsList = []
         self.current = ''
-        
+
     def getName(self, item):
         if item in self.items.keys():
             return self.items[item]['name']
@@ -24,14 +26,14 @@ class Stack(object):
         if userid not in self.items[self.current]['opinions'][opinion]:
             self.items[self.current]['opinions'][opinion].append(userid)
             try:
-                self.items[self.current]['opinions'][anotherOpinion].remove(userid)
+                self.items[self.current]['opinions'][
+                    anotherOpinion].remove(userid)
             except ValueError:
                 pass
             return True
         else:
             return False
-        
-        
+
     def getOpinions(self):
         return self.items[self.current]['opinions']
 
@@ -45,15 +47,17 @@ class Stack(object):
         return len(self.itemsList) == 0
 
     def push(self, item):
-        if not item in self.items.keys():
+        if item not in self.items.keys():
             title = youtube.getTitle(item)
             duration = youtube.getDuration(item)
             if title and duration:
                 self.items[str(item)] = {}
                 self.itemsList.append(str(item))
                 self.items[str(item)]['name'] = title
-                self.items[str(item)]['duration'] = int(isodate.parse_duration(duration).total_seconds())
-                self.items[str(item)]['opinions'] = { 'like' : [] , 'dislike' : [] }
+                self.items[str(item)]['duration'] = int(
+                    isodate.parse_duration(duration).total_seconds())
+                self.items[str(item)]['opinions'] = {
+                    'like': [], 'dislike': []}
                 return True
             else:
                 return False
@@ -67,7 +71,7 @@ class Stack(object):
 
     def last(self):
         if not self.isEmpty():
-            return self.itemsList[len(self.itemsList)-1]
+            return self.itemsList[len(self.itemsList) - 1]
         else:
             return None
 
@@ -88,6 +92,7 @@ class Stack(object):
     def get(self):
         data = {}
         for i in enumerate(self.itemsList):
-            _data = { 'item' : i[1], 'name' : self.items[i[1]]['name'], 'duration' : self.items[i[1]]['duration'] }
+            _data = {'item': i[1], 'name': self.items[i[1]][
+                'name'], 'duration': self.items[i[1]]['duration']}
             data[i[0]] = json.dumps(_data)
         return json.dumps(data)

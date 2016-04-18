@@ -7,18 +7,22 @@ currenttime = 0
 
 radio = ''
 
+
 def writelog(data):
     f = open('/tmp/threads.log', 'a')
     f.write(str(data) + '\n')
     f.close()
 
+
 def setradio(value):
     global radio
     radio = value
 
+
 def gettime():
     global currenttime
     return str(currenttime)
+
 
 def threadWatcher():
     global currenttime
@@ -40,15 +44,15 @@ def threadWatcher():
         if radio['qstack'].getCurrent() == videoID:
             radio['qstack'].pop()
 
+
 def likeWatcher():
     global radio
     while True:
         opinions = radio['qstack'].getOpinions()
         userCount = radio['ustack'].size()
         if userCount:
-            if float(len(opinions['dislike'])) * 100 / float( int(userCount) + int(len(opinions['like'])) )  > 50:
+            dislikeCount = float(len(opinions['dislike']))
+            likeCount = float(int(userCount) + int(len(opinions['like'])))
+            if (dislikeCount * 100 / likeCount) > 50:
                 radio['qstack'].pop()
         time.sleep(1)
-
-    
-    

@@ -7,6 +7,7 @@ import uuid
 
 
 class Stack(object):
+
     def __init__(self):
         self.items = {}
 
@@ -18,7 +19,7 @@ class Stack(object):
             return self.items[str(item)]['cookie']
         else:
             return None
-            
+
     def getNames(self, item):
         if item in items.keys():
             return self.items[str(item)]['names']
@@ -26,7 +27,7 @@ class Stack(object):
             return None
 
     def push(self, item):
-        if not item in self.items.keys():
+        if item not in self.items.keys():
             self.items[str(item)] = {}
             self.items[str(item)]['names'] = []
             self.items[str(item)]['cookie'] = str(uuid.uuid1())
@@ -54,6 +55,7 @@ class Stack(object):
     def get(self):
         data = {}
         for i in enumerate(self.items.keys()):
-            _data = { 'item' : i[1], 'cookie' : self.items[i[1]]['cookie'], 'names' : self.items[i[1]]['names'] }
+            _data = {'item': i[1], 'cookie': self.items[i[1]][
+                'cookie'], 'names': self.items[i[1]]['names']}
             data[i[0]] = json.dumps(_data)
         return json.dumps(data)

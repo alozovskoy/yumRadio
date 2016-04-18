@@ -14,13 +14,14 @@ apiURL = 'https://www.googleapis.com/oauth2/v1/userinfo'
 
 state = str(random.getrandbits(64))
 
+
 def getUserConfirm():
     auth_params = {
-    "client_id": clientKey,
-    "state": state,
-    "redirect_uri": callbackURL,
-    "scope": "openid",
-    "response_type": "code",
+        "client_id": clientKey,
+        "state": state,
+        "redirect_uri": callbackURL,
+        "scope": "openid",
+        "response_type": "code",
     }
     url = '?'.join([authURL, urlencode(auth_params)])
     return url
@@ -28,11 +29,11 @@ def getUserConfirm():
 
 def getResource(data):
     auth_params = {
-    "client_id": clientKey,
-    "state": state,
-    "redirect_uri": callbackURL,
-    "scope": "openid",
-    "response_type": "code",
+        "client_id": clientKey,
+        "state": state,
+        "redirect_uri": callbackURL,
+        "scope": "openid",
+        "response_type": "code",
     }
     redirect_params = dict(parse_qsl(urlparse(data).query))
     assert redirect_params['state'] == auth_params['state']
@@ -56,4 +57,3 @@ def getResource(data):
     assert resp.code == 200
     resp_content = json.loads(resp.read())
     return resp_content
-    
