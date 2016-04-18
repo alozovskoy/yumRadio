@@ -4,6 +4,19 @@ function getUsers(){
     return false;
 };
 
+function timeConverter(UNIX_timestamp){
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+    return time;
+}
+
 function wsOnUsers(data){
     console.log(data);
 	var users = JSON.parse(data);
@@ -14,11 +27,11 @@ function wsOnUsers(data){
 	if ( Object.keys(users).length > 0 ){
 		for (var key = 0; key < Object.keys(users).length ; key++) {
 			var item = JSON.parse(users[key]);
-			tableData += '<td>' + item['names'] + '</td><td><button class="btn btn-block btn-warning" onclick="deleteUser(\'' + item['item'] + '\');">DEL</button></td></tr>'
+			tableData += '<tr><td>' + timeConverter(item['lasttime']) + '</td><td>' + item['names'] + '</td><td><button class="btn btn-block btn-warning" onclick="deleteUser(\'' + item['item'] + '\');">DEL</button></td></tr>'
 		}
 	}
 	else {
-		var tableData = '<tr><td colspan=2>Очередь пуста</td></tr>'
+		var tableData = '<tr><td colspan=3>Нет пользователей оО</td></tr>'
 	}
 	
 	$('#users').html(tableHead + tableData + tableTail);
