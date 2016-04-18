@@ -4,8 +4,6 @@
 import json
 import urllib2
 
-serverDir = ''
-
 
 def getTitle(videoid):
     title = None
