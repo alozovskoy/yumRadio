@@ -1,4 +1,4 @@
-{% extends "templates/main" %}
+{% extends "templates/pages/main" %}
 {% block header %}
     <form class="navbar-form" role="search">
         <div class="form-group">
