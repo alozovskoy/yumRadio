@@ -91,30 +91,39 @@ class URIHandler(tornado.web.RequestHandler):
         if page == '/':
             page = 'index'
 
-        if page.startswith('/login'):
-            if self.request.uri == '/login':
-                templVars['target'] = auth.getUserConfirm()
-                logging.info(templVars)
-                self.set_status(200)
-                self.render(serverDir + '/templates/login', **templVars)
+        if page.startswith(('/login', '/static', '/favicon.ico')):
+            if page == '/favicon.ico':
+                    self.set_status(404)
+                    self.render(serverDir + '/templates/pages/empty')
+            elif page.startswith('/static'):
+                with open(serverDir + page,'r') as staticfile:
+                    self.write(staticfile.read())
             else:
-                logging.info('google')
-                logging.info(self.request.uri)
-                resource = auth.getResource(self.request.uri)
-                if resource:
-                    userid = hashlib.sha512(resource['id']).hexdigest()
-                    sessionid = radio['ustack'].push(userid)
-                    self.set_cookie('userid', userid)
-                    self.set_cookie('sessionid', sessionid)
-                    self.redirect('/')
-                    return
+                if self.request.uri == '/login':
+                    templVars['target'] = auth.getUserConfirm()
+                    logging.info(templVars)
+                    self.set_status(200)
+                    self.render(serverDir + '/templates/pages/login', **templVars)
                 else:
-# TODO: Вставить страничку с информированием о проблеме со входом
-                    self.redirect('/login')
-                    return
+                    logging.info('google')
+                    logging.info(self.request.uri)
+                    resource = auth.getResource(self.request.uri)
+                    if resource:
+                        userid = hashlib.sha512(resource['id']).hexdigest()
+                        sessionid = radio['ustack'].push(userid)
+                        self.set_cookie('userid', userid)
+                        self.set_cookie('sessionid', sessionid)
+                        self.redirect('/')
+                        return
+                    else:
+    # TODO: Вставить страничку с информированием о проблеме со входом
+                        self.redirect('/login')
+                        return
         else:
+
             userid = self.get_cookie('userid')
             sessionid = self.get_cookie('sessionid')
+            
             if not sessionid or not userid or \
                     sessionid != radio['ustack'].getCookie(userid):
                 self.redirect('/login')
@@ -126,29 +135,15 @@ class URIHandler(tornado.web.RequestHandler):
                     currentvideo = radio['qstack'].getCurrent()
                     pageVars['start'] = currenttime
                     pageVars['video'] = currentvideo
-                    if page == '/favicon.ico':
-                        self.set_status(404)
-                        self.render(serverDir + '/templates/empty')
-                    else:
-                        if not page.startswith('/static/'):
-                            self.render(
-                                serverDir + '/templates/' + page, **pageVars)
-                        else:
-                            if page.startswith('/static/js'):
-                                self.render(
-                                    serverDir + page, **pageVars)
-                            else:
-                                self.write(serverDir + page)
-                    self.set_header('Connection', 'close')
+                    self.set_status(200)
+                    self.render(serverDir + '/templates/pages/' + page, **pageVars)
                 except Exception, e:
                     logging.error('MainERROR: %s (%s)' % (e, Exception))
                     raise
                     self.set_status(404)
-                    self.render(serverDir + '/templates/404', **templVars)
-                    self.set_header('Connection', 'close')
-                    return None
-
-
+                    self.render(serverDir + '/templates/pages/404', **templVars)
+        self.set_header('Connection', 'close')
+        
 ws.radio = radio
 ws.logging = logging
 ws.threads = threads
