@@ -67,6 +67,8 @@ class Stack(object):
     def pop(self):
         if not self.isEmpty():
             self.current = self.itemsList.pop(0)
+        else:
+            self.current = ''
         return None
 
     def last(self):
