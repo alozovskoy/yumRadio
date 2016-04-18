@@ -1,7 +1,7 @@
-var currentVideoOnClient = "{{ video }}";
-var currentTimeOnClient = "{{ start }}";
-var currentVideoOnServer = "{{ video }}";
-var currentTimeOnServer = "{{ start }}";
+var currentVideoOnClient;
+var currentTimeOnClient;
+var currentVideoOnServer;
+var currentTimeOnServer;
 
 var playerHeight;
 
