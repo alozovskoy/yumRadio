@@ -42,13 +42,13 @@ auth.callbackURL = 'https://%s/login' % listenName
 youtube.serverDir = serverDir
 
 
-stack.youtube = youtube
-stack.serverDir = serverDir
-stack.logging = logging
+queuestack.youtube = youtube
+queuestack.serverDir = serverDir
+queuestack.logging = logging
 
 radio = {}
 
-radio['qstack'] = stack.Stack()
+radio['qstack'] = queuestack.Stack()
 radio['qstack'].youtube = youtube
 radio['qstack'].push('ldK1gQSSTSo')
 radio['qstack'].pop()
