@@ -41,6 +41,7 @@ def threadWatcher():
             else:
                 currenttime = 0
                 break
+        currenttime = 0
         if radio['qstack'].getCurrent() == videoID:
             radio['qstack'].pop()
 
