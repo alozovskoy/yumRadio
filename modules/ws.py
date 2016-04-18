@@ -68,10 +68,12 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 'status': status,
                 'msg': msg})
 
-        if data['action'] == 'del':
-            if youtubeID.match(data['id']):
-                radio['qstack'].delete(data['id'])
-                logging.info(radio['qstack'].get())
+        if data['action'] == 'videoDelete':
+            if 'adminkey' in data.keys():
+                with open(serverDir + '/adminkey', 'r') as f:
+                    adminkey = f.readline().split()[0]
+                if data['adminkey'] == adminkey:
+                    radio['qstack'].delete(data['videoid'])
 
         if data['action'] == 'videoPlayNext':
             if 'adminkey' in data.keys():

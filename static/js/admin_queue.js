@@ -14,7 +14,7 @@ function wsOnQueue(data){
 		for (var key = 0; key < Object.keys(queue).length ; key++) {
 			var item = JSON.parse(queue[key]);
 			time = parseInt(item['duration'])
-			tableData += '<td>' + item['name'] + ', ' + toFormattedTime(time, true, false)  + '</td><td><button class="btn btn-block btn-warning" onclick="videoDelete(' + item['id'] + ');">DEL</button></td></tr>'
+			tableData += '<td>' + item['name'] + ', ' + toFormattedTime(time, true, false)  + '</td><td><button class="btn btn-block btn-warning" onclick="videoDelete(\'' + item['item'] + '\');">DEL</button></td></tr>'
 		}
 	}
 	else {
@@ -37,9 +37,10 @@ function videoNext(){
 };
 
 function videoDelete(videoID){
+    console.log(videoID);
 
 	var adminkey = $adminkey.val();
-	sendMessage(JSON.stringify({type: "video", action: "videoPlayNext", adminkey: adminkey}));
+	sendMessage(JSON.stringify({type: "video", action: "videoDelete", adminkey: adminkey, videoid: videoID}));
     return false;
 
 };
