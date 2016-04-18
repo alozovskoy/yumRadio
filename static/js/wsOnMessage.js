@@ -1,8 +1,6 @@
 ws.onmessage = function (evt) {
     var data = JSON.parse(evt.data)
     
-    //console.log(data)
-    
     var type = data['type']
 	var action = data['action']
 	
@@ -68,7 +66,6 @@ ws.onmessage = function (evt) {
         case 'ping':
             latency = Date.now() - pingStartTime;
             parsedLatency = parseInt(latency / 1000)
-            console.log('latency: ' + latency + ', ' + parsedLatency );
             break
 
 		case 'opinion':
