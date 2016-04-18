@@ -50,8 +50,8 @@ radio = {}
 
 radio['qstack'] = queuestack.Stack()
 radio['qstack'].youtube = youtube
-radio['qstack'].push('ldK1gQSSTSo')
-radio['qstack'].pop()
+#radio['qstack'].push('ldK1gQSSTSo')
+#radio['qstack'].pop()
 
 
 radio['ustack'] = userstack.Stack()
@@ -130,12 +130,15 @@ class URIHandler(tornado.web.RequestHandler):
                         self.set_status(404)
                         self.render(serverDir + '/templates/empty')
                     else:
-                        if not page.startswith('/js/'):
+                        if not page.startswith('/static/'):
                             self.render(
                                 serverDir + '/templates/' + page, **pageVars)
                         else:
-                            self.render(
-                                serverDir + '/static/' + page, **pageVars)
+                            if page.startswith('/static/js'):
+                                self.render(
+                                    serverDir + page, **pageVars)
+                            else:
+                                self.write(serverDir + page)
                     self.set_header('Connection', 'close')
                 except Exception, e:
                     logging.error('MainERROR: %s (%s)' % (e, Exception))
