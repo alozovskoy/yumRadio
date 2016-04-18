@@ -1,4 +1,4 @@
-import stack
+import queuestack
 import threads
 import ws
 import youtube
