@@ -101,12 +101,17 @@ class URIHandler(tornado.web.RequestHandler):
                 logging.info('google')
                 logging.info(self.request.uri)
                 resource = auth.getResource(self.request.uri)
-                userid = hashlib.sha512(resource['id']).hexdigest()
-                sessionid = radio['ustack'].push(userid)
-                self.set_cookie('userid', userid)
-                self.set_cookie('sessionid', sessionid)
-                self.redirect('/')
-                return
+                if resource:
+                    userid = hashlib.sha512(resource['id']).hexdigest()
+                    sessionid = radio['ustack'].push(userid)
+                    self.set_cookie('userid', userid)
+                    self.set_cookie('sessionid', sessionid)
+                    self.redirect('/')
+                    return
+                else:
+# TODO: Вставить страничку с информированием о проблеме со входом
+                    self.redirect('/login')
+                    return
         else:
             userid = self.get_cookie('userid')
             sessionid = self.get_cookie('sessionid')

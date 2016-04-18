@@ -36,24 +36,27 @@ def getResource(data):
         "response_type": "code",
     }
     redirect_params = dict(parse_qsl(urlparse(data).query))
-    assert redirect_params['state'] == auth_params['state']
-    authCode = redirect_params['code']
-    access_token_params = {
-        'client_id':        clientKey,
-        'redirect_uri':     callbackURL,
-        'client_secret':    clientSecret,
-        'code':             authCode,
-        'grant_type':       'authorization_code'
-    }
-    resp = urllib2.urlopen(accessURL, data=urlencode(access_token_params))
-    assert resp.code == 200
-    resp_content = json.loads(resp.read())
-    access_token = resp_content['access_token']
-    api_params = {
-        'access_token': access_token,
-    }
-    url = "?".join([apiURL, urlencode(api_params)])
-    resp = urllib2.urlopen(url)
-    assert resp.code == 200
-    resp_content = json.loads(resp.read())
-    return resp_content
+    if redirect_params['state'] == auth_params['state']:
+        authCode = redirect_params['code']
+        access_token_params = {
+            'client_id':        clientKey,
+            'redirect_uri':     callbackURL,
+            'client_secret':    clientSecret,
+            'code':             authCode,
+            'grant_type':       'authorization_code'
+        }
+        resp = urllib2.urlopen(accessURL, data=urlencode(access_token_params))
+        assert resp.code == 200
+        resp_content = json.loads(resp.read())
+        access_token = resp_content['access_token']
+        api_params = {
+            'access_token': access_token,
+        }
+        url = "?".join([apiURL, urlencode(api_params)])
+        resp = urllib2.urlopen(url)
+        assert resp.code == 200
+        resp_content = json.loads(resp.read())
+        return resp_content
+    else:
+        return None
+    
