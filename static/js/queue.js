@@ -4,7 +4,6 @@ function videoGetQueue(){
 };
 
 function wsOnQueue(data){
-    console.log(data);
 	var queue = JSON.parse(data);
 	var tableHead = '<table class="table table-striped table-condensed table-bordered"><tbody>'
 	var tableTail = '</tbody></table>'
