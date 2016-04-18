@@ -3,6 +3,13 @@
 
 import sys
 import logging
+import re
+import time
+import datetime
+import os
+import hashlib
+from threading import Thread
+
 import tornado.ioloop
 import tornado.web
 from tornado.httpclient import AsyncHTTPClient
@@ -10,14 +17,8 @@ import tornado.httpserver
 import tornado.websocket
 from tornado.options import define, options
 from tornado.process import Subprocess
-import re
-import time
-import datetime
-import os
-import hashlib
 
-from threading import Thread
-
+from modules import *
 
 serverDir = str(os.path.abspath(os.path.dirname(sys.argv[0])))
 listenPort = 443
@@ -29,18 +30,18 @@ logging.basicConfig(level=logging.DEBUG,
                     datefmt='%d/%m/%Y %Hh%Mm%Ss',
                     filename='/tmp/radio.log')
 
-from modules import auth
+
 with open(serverDir + '/clientkey', 'r') as f:
     auth.clientKey = f.readline().split()[0]
 with open(serverDir + '/clientsecret', 'r') as f:
     auth.clientSecret = f.readline().split()[0]
-    
+
 auth.callbackURL = 'https://%s/login' % listenName
 
-from modules import youtube
+
 youtube.serverDir = serverDir
 
-from modules import stack
+
 stack.youtube = youtube
 stack.serverDir = serverDir
 stack.logging = logging
@@ -52,13 +53,13 @@ radio['qstack'].youtube = youtube
 radio['qstack'].push('ldK1gQSSTSo')
 radio['qstack'].pop()
 
-from modules import userstack
+
 radio['ustack'] = userstack.Stack()
 
 radio['currenttime'] = 0
 radio['currentvideo'] = radio['qstack'].first()
 
-from modules import threads
+
 logging.info(radio['qstack'].getCurrent())
 threads.setradio(radio)
 
@@ -75,6 +76,7 @@ likethread.start()
 
 templVars = {}
 
+
 class URIHandler(tornado.web.RequestHandler):
 
     def get(self):
@@ -88,7 +90,7 @@ class URIHandler(tornado.web.RequestHandler):
             page = '/' + self.request.uri
         if page == '/':
             page = 'index'
-            
+
         if page.startswith('/login'):
             if self.request.uri == '/login':
                 templVars['target'] = auth.getUserConfirm()
@@ -106,7 +108,10 @@ class URIHandler(tornado.web.RequestHandler):
                 self.redirect('/')
                 return
         else:
-            if not self.get_cookie('sessionid') or not self.get_cookie('userid') or self.get_cookie('sessionid') != radio['ustack'].getCookie(self.get_cookie('userid')):
+            userid = self.get_cookie('userid')
+            sessionid = self.get_cookie('sessionid')
+            if not sessionid or not userid or \
+                    sessionid != radio['ustack'].getCookie(userid):
                 self.redirect('/login')
                 return
             else:
@@ -121,9 +126,11 @@ class URIHandler(tornado.web.RequestHandler):
                         self.render(serverDir + '/templates/empty')
                     else:
                         if not page.startswith('/js/'):
-                            self.render(serverDir + '/templates/' + page, **pageVars)
+                            self.render(
+                                serverDir + '/templates/' + page, **pageVars)
                         else:
-                            self.render(serverDir + '/static/' + page, **pageVars)
+                            self.render(
+                                serverDir + '/static/' + page, **pageVars)
                     self.set_header('Connection', 'close')
                 except Exception, e:
                     logging.error('MainERROR: %s (%s)' % (e, Exception))
@@ -133,7 +140,7 @@ class URIHandler(tornado.web.RequestHandler):
                     self.set_header('Connection', 'close')
                     return None
 
-from modules import ws
+
 ws.radio = radio
 ws.logging = logging
 ws.threads = threads
@@ -147,9 +154,11 @@ application = tornado.web.Application([
     cookie_secret="nieg+eiy8Aeki,a7faeferuh"
 )
 
-ssl_options = { "certfile": serverDir + '/ssl/ssl.crt', "keyfile": serverDir + '/ssl/ssl.key' }
+ssl_options = {"certfile": serverDir + '/ssl/ssl.crt',
+               "keyfile": serverDir + '/ssl/ssl.key'}
 
 if __name__ == "__main__":
-    http_server = tornado.httpserver.HTTPServer(application, ssl_options = ssl_options)
+    http_server = tornado.httpserver.HTTPServer(
+        application, ssl_options=ssl_options)
     http_server.listen(listenPort)
     tornado.ioloop.IOLoop.instance().start()
