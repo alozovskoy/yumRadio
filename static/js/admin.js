@@ -18,9 +18,3 @@ function videoDelete(){
     return false;
 
 };
-
-ws.onmessage = function (evt) {
-    var data = JSON.parse(evt.data)
-    console.log(data)
-    var type = data['type']
-};

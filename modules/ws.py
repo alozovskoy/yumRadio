@@ -11,20 +11,21 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
     def chat(self, data):
         global radio
-        if 'msg' in data.keys() and data['msg'] and 'user' in data.keys():
-            user = data['user'].strip()[0:15] if data['user'] else 'anonimous'
-            msg = data['msg'].strip()[0:128]
-            self.send_all({
-                'type': 'chat',
-                'action': 'inMessage',
-                'name': user,
-                'msg': msg})
+        if data['action'] == 'sendMsg':
+            if 'msg' in data.keys() and data['msg'] and 'user' in data.keys():
+                user = data['user'].strip()[0:15] if data['user'] else 'anonimous'
+                msg = data['msg'].strip()[0:128]
+                self.send_all({
+                    'type': 'chat',
+                    'action': 'getMsg',
+                    'name': user,
+                    'msg': msg})
         return None
 
     def video(self, data):
         global radio
         youtubeID = re.compile("^[A-Z0-9a-z_-]{11}$")
-        if data['action'] == 'add':
+        if data['action'] == 'videoAdd':
             if radio['qstack'].size() < 30:
                 if youtubeID.match(data['id']):
                     if radio['qstack'].push(data['id']):

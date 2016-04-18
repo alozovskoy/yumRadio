@@ -2,7 +2,7 @@
 {% block header %}
     <form class="navbar-form" role="search">
         <div class="form-group">
-            <input type="text" class="form-control" name="username" id="username" title="Как вас представить?" value="anonimous" onkeypress="if(event.keyCode==13){ return false;}"></input>
+            <input type="text" class="form-control" name="chatUser" id="chatUser" title="Как вас представить?" value="anonimous" onkeypress="if(event.keyCode==13){ return false;}"></input>
             <a href='/profile' class="btn btn-warning" title="Перейти к странице информации об учетной записи">Profile</a>
         </div>
     </form>
@@ -101,17 +101,17 @@
                             <textarea
                                 row=2
                                 class="form-control"
-                                name="msg"
-                                id="msg"
+                                name="chatMsg"
+                                id="chatMsg"
                                 placeholder="Текст сообщения..."
                                 title="Пиши свое сообщение сюда"
                                 autocomplete="off"
                                 maxlength=128
-                                onkeypress="if(event.ctrlKey && event.keyCode==13)chatSend();"
+                                onkeypress="if(event.ctrlKey && event.keyCode==13)chatSendMessage();"
                                 style="resize: none; background: transparent;"></textarea>
                         </div>
                         <div class="col-sm-12">
-                        <button type="button" class="btn btn-success btn-block" onclick="chatSend();">Send</button>
+                        <button type="button" class="btn btn-success btn-block" onclick="chatSendMessage();">Send</button>
                         </div>
                     </form>
                     </div>

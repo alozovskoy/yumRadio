@@ -3,7 +3,7 @@ function videoSend(){
     var vid = $vid.val();
     console.log(vid);
     $vid.val('');
-    sendMessage(JSON.stringify({id: vid, type: "video", action: "add"}));
+    sendMessage(JSON.stringify({id: vid, type: "video", action: "videoAdd"}));
     return false;
 };
 

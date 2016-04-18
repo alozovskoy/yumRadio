@@ -1,4 +1,34 @@
-function inMessage(name, msg){
+function hashCode(str) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+       hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return hash;
+} 
+
+function intToRGB(i){
+    var c = (i & 0x00FFFFFF)
+        .toString(16)
+        .toUpperCase();
+
+    return "00000".substring(0, 6 - c.length) + c;
+}
+
+var tagsToReplace = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;'
+};
+
+function replaceTag(tag) {
+    return tagsToReplace[tag] || tag;
+}
+
+function safe_tags_replace(str) {
+    return str.replace(/[&<>]/g, replaceTag);
+}
+
+function chatGetMessage(name, msg){
 	var username = safe_tags_replace(name);
 	var usernamecolor = intToRGB(hashCode(username));
 	var text = '<span style="color: #' + usernamecolor + ';">' + username + '</span>: ' + safe_tags_replace(msg);
@@ -9,16 +39,16 @@ function inMessage(name, msg){
 }
 
 
-function chatSend(){
-	$msg = $("#msg")
-	$username = $("#username")
+function chatSendMessage(){
+	$msg = $("#chatMsg")
+	$username = $("#chatUser")
 	
 	var msg = $msg.val()
 	var username = $username.val()
 	
 	$msg.val('');
-    
-    sendMessage(JSON.stringify({msg: msg, user: username, type: "chat"}));
+   
+    sendMessage(JSON.stringify({type: "chat", action: 'sendMsg', msg: msg, user: username }));
 	
 	return false;
 }
