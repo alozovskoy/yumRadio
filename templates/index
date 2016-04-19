@@ -4,6 +4,9 @@
 
 $.getScripts = function (files){
     var queue = $.Deferred().resolve();
+    $.ajaxSetup({
+        cache: true
+    });
     $.each(files, function (i, src){
         queue = queue.pipe(function (){
             return  $.getScripts[src] || ($.getScripts[src] = $.getScript(src));
