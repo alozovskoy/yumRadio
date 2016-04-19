@@ -73,7 +73,7 @@ likethread = Thread(target=threads.likeWatcher)
 likethread.setDaemon(True)
 likethread.start()
 
-userthread = Thread(target=threads.userInRoomWatcher)
+userthread = Thread(target=threads.userWatcher)
 userthread.setDaemon(True)
 userthread.start()
 

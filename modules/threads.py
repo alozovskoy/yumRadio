@@ -63,13 +63,15 @@ def likeWatcher():
                 radio['qstack'].pop()
         time.sleep(1)
 
-def userInRoomWatcher():
+def userWatcher():
     global radio
     while True:
-        users = radio['ustack'].getUsersInRoom()
+        users = radio['ustack'].getAll()
         nowTime = int(time.time())
         for item in users:
             userTime = radio['ustack'].getTime(item)
-            if nowTime - userTime > 10:
+            if nowTime - userTime > 300:
                 radio['ustack'].removeFromRoom(item)
+            if nowTime - userTime > 900:
+                radio['ustack'].delete(item)
         time.sleep(10)
