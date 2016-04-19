@@ -5,6 +5,7 @@ import isodate
 import json
 import uuid
 
+import time
 
 class Stack(object):
 
@@ -34,6 +35,7 @@ class Stack(object):
             return self.items[str(item)]['cookie']
         else:
             return self.items[str(item)]['cookie']
+        self.setTime(str(item))
 
     def appendName(self, item, name):
         if item in self.items.keys():
@@ -55,7 +57,21 @@ class Stack(object):
     def get(self):
         data = {}
         for i in enumerate(self.items.keys()):
-            _data = {'item': i[1], 'cookie': self.items[i[1]][
-                'cookie'], 'names': self.items[i[1]]['names']}
+            _data = {
+                'item': i[1],
+                'cookie': self.items[i[1]]['cookie'],
+                'names': self.items[i[1]]['names'],
+                'lasttime': self.items[i[1]]['lasttime']}
             data[i[0]] = json.dumps(_data)
         return json.dumps(data)
+        
+    def setTime(self, userid):
+        if userid in self.items.keys():
+            self.items[userid]['lasttime'] = int(time.time())
+        return None
+        
+    def getTime(self, userid):
+        if userid in self.items.keys():
+            return self.items[userid]['lasttime']
+        else:
+            return None
