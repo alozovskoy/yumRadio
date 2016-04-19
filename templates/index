@@ -117,7 +117,9 @@ $.getScripts(jsList);
             <div class="col-md-2">
                 <button class="btn btn-success">Send</button>
             </div>
-            <div class="col-md-4 dropup">
+        </div>
+        <div class="row">
+            <div class="col-md-12 dropup">
                 <button 
                     class="btn btn-primary dropdown-toggle btn-block" 
                     type="button" 
@@ -127,8 +129,7 @@ $.getScripts(jsList);
                     Очередь
                     <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu centerDropdown" id="queue" aria-labelledby="queue" style="width: 500px;">
-                </ul>
+                    <ul class="dropdown-menu pull-center" id="queue" aria-labelledby="queue" style="width: 100%;"></ul>
             </div>
             
 			</form>
