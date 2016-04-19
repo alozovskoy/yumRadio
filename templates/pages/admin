@@ -1,4 +1,33 @@
 {% extends "templates/pages/main" %}
+{% block scripts %}
+<script type="text/javascript">
+
+$.getScripts = function (files){
+    var queue = $.Deferred().resolve();
+    $.each(files, function (i, src){
+        queue = queue.pipe(function (){
+            return  $.getScripts[src] || ($.getScripts[src] = $.getScript(src));
+        });
+    });
+    return  queue;
+}
+
+var jsList = [
+    "/static/js/reconnecting-websocket.js", 
+    "/static/js/wsInit.js", 
+    "/static/js/wsSendMessage.js", 
+    "/static/js/admin_wsOnMessage.js", 
+    "/static/js/admin.js", 
+    "/static/js/cookie.js", 
+    "/static/js/time.js", 
+    "/static/js/admin_queue.js", 
+    "/static/js/admin_users.js"
+];
+
+$.getScripts(jsList);
+
+</script>
+{% end %}
 {% block header %}
     <form class="navbar-form" role="search">
         <div class="form-group">

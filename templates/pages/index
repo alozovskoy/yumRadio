@@ -1,4 +1,37 @@
 {% extends "templates/pages/main" %}
+{% block scripts %}
+<script type="text/javascript">
+
+$.getScripts = function (files){
+    var queue = $.Deferred().resolve();
+    $.each(files, function (i, src){
+        queue = queue.pipe(function (){
+            return  $.getScripts[src] || ($.getScripts[src] = $.getScript(src));
+        });
+    });
+    return  queue;
+}
+
+var jsList = [
+    "/static/js/reconnecting-websocket.js", 
+    "/static/js/wsInit.js", 
+    "/static/js/misc.js", 
+    "/static/js/cookie.js", 
+    "/static/js/time.js", 
+    "/static/js/youtube.js", 
+    "/static/js/chat.js", 
+    "/static/js/opinion.js", 
+    "/static/js/alert.js", 
+    "/static/js/wsSendMessage.js", 
+    "/static/js/wsOnMessage.js", 
+    "/static/js/queue.js", 
+    "/static/js/video.js"
+];
+
+$.getScripts(jsList);
+
+</script>
+{% end %}
 {% block header %}
     <form class="navbar-form" role="search">
         <div class="form-group">
@@ -125,7 +158,4 @@
         </div>
     </div>
 </div>
-
-{% include templates/js/main.js %}
-
 {% end %}
