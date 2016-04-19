@@ -1,9 +1,9 @@
-currentVideoOnClient;
-currentTimeOnClient;
-currentVideoOnServer;
-currentTimeOnServer;
+currentVideoOnClient = '';
+currentTimeOnClient = '';
+currentVideoOnServer = '';
+currentTimeOnServer = '';
 
-playerHeight;
+playerHeight = '';
 
 currentVideoTitle = '';
 
@@ -111,8 +111,6 @@ function StartVideo(){
 
 setInterval(nowPlay, 1000);
 setInterval(nowPlayTitle, 1000);
-setInterval(videoGetCurrent, 1000);
-setInterval(videoGetNext, 1000);
 setInterval(checkCurrentVideo, 1000);
 setInterval(checkCurrentTime, 1000);
 setInterval(getPlayerHeight, 1000);
