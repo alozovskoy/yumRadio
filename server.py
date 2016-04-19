@@ -58,7 +58,6 @@ radio['currenttime'] = 0
 radio['currentvideo'] = radio['qstack'].first()
 
 
-logging.info(radio['qstack'].getCurrent())
 threads.setradio(radio)
 
 radio['threads'] = threads
@@ -81,7 +80,7 @@ templVars = {}
 class URIHandler(tornado.web.RequestHandler):
 
     def get(self):
-        logging.info(self.request)
+        logging.debug('Request: %s' % self.request)
         global radio
         try:
             page = self.request.uri.split('?')[0]
@@ -105,7 +104,6 @@ class URIHandler(tornado.web.RequestHandler):
             else:
                 if self.request.uri == '/login':
                     templVars['target'] = auth.getUserConfirm()
-                    logging.info(templVars)
                     self.set_status(200)
                     self.render(serverDir + '/templates/login', **templVars)
                 else:

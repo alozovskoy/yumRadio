@@ -36,8 +36,6 @@ class Stack(object):
                 return True
             else:
                 return False
-            logging.error(self.items)
-            logging.error(self.itemsList)
         else:
             return False
 

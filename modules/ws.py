@@ -178,9 +178,8 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 'session':  self.session,
                 'users':    self.users,
             }
-            logging.info(data)
+            logging.debug('wsData: %s' % data)
             if data['type'] and data['type'] in actions.keys():
-                logging.info('DATA %s' % str(data))
                 actions[data['type']](data)
         else:
             self.send_one({'type': 'auth', 'action': 'reauth'})
