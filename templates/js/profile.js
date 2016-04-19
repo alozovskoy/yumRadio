@@ -1,3 +1,4 @@
+<script type="text/javascript" src="/static/js/reconnecting-websocket.js"></script>
 <script type="text/javascript" src="/static/js/wsInit.js"></script>
 <script type="text/javascript" src="/static/js/misc.js"></script>
 <script type="text/javascript" src="/static/js/cookie.js"></script>
