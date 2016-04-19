@@ -163,6 +163,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         data = json.loads(msg)
         global radio
         if data['sessionid'] == radio['ustack'].getCookie(data['userid']):
+            radio['ustack'].setTime(data['userid'])
             actions = {
                 'chat':     self.chat,
                 'video':    self.video,
