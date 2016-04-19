@@ -42,7 +42,6 @@ def threadWatcher():
         _time = 0
         while _time < videoTime:
             if radio['qstack'].getCurrent() == videoID:
-                writelog(currenttime)
                 time.sleep(0.1)
                 _time += 0.1
                 currenttime = int(_time)
@@ -56,10 +55,21 @@ def likeWatcher():
     global radio
     while True:
         opinions = radio['qstack'].getOpinions()
-        userCount = radio['ustack'].size()
+        userCount = radio['ustack'].getSizeInRoom()
         if userCount and opinions:
             dislikeCount = float(len(opinions['dislike']))
             likeCount = float(int(userCount) + int(len(opinions['like'])))
             if (dislikeCount * 100 / likeCount) > 50:
                 radio['qstack'].pop()
         time.sleep(1)
+
+def userInRoomWatcher():
+    global radio
+    while True:
+        users = radio['ustack'].getUsersInRoom()
+        nowTime = int(time.time())
+        for item in users:
+            userTime = radio['ustack'].getTime(item)
+            if nowTime - userTime > 10:
+                radio['ustack'].removeFromRoom(item)
+        time.sleep(10)
