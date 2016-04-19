@@ -94,7 +94,7 @@ class URIHandler(tornado.web.RequestHandler):
         if page.startswith(('/login', '/static', '/favicon.ico')):
             if page == '/favicon.ico':
                     self.set_status(404)
-                    self.render(serverDir + '/templates/pages/empty')
+                    self.render(serverDir + '/templates/empty')
             elif page.startswith('/static'):
                 with open(serverDir + page,'r') as staticfile:
                     self.write(staticfile.read())
@@ -103,7 +103,7 @@ class URIHandler(tornado.web.RequestHandler):
                     templVars['target'] = auth.getUserConfirm()
                     logging.info(templVars)
                     self.set_status(200)
-                    self.render(serverDir + '/templates/pages/login', **templVars)
+                    self.render(serverDir + '/templates/login', **templVars)
                 else:
                     resource = auth.getResource(self.request.uri)
                     if resource:

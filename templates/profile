@@ -1,4 +1,4 @@
-{% extends "templates/pages/main" %}
+{% extends "templates/main" %}
 {% block scripts %}
 <script type="text/javascript">
 
@@ -57,8 +57,6 @@ $.getScripts(jsList);
         <div id="alerts"></div>
     </div>
 </div>
-
-{% include templates/js/profile.js %}
 
 {% end %}
 
