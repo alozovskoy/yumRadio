@@ -1,7 +1,7 @@
-{% include static/js/wsInit.js %}
-{% include static/js/misc.js %}
-{% include static/js/cookie.js %}
-{% include static/js/alert.js %}
-{% include static/js/wsSendMessage.js %}
-{% include static/js/wsOnMessage.js %}
-{% include static/js/profile.js %}
+<script type="text/javascript" src="/static/js/wsInit.js"></script>
+<script type="text/javascript" src="/static/js/misc.js"></script>
+<script type="text/javascript" src="/static/js/cookie.js"></script>
+<script type="text/javascript" src="/static/js/alert.js"></script>
+<script type="text/javascript" src="/static/js/wsSendMessage.js"></script>
+<script type="text/javascript" src="/static/js/wsOnMessage.js"></script>
+<script type="text/javascript" src="/static/js/profile.js"></script>

@@ -1,9 +1,9 @@
-{% include static/js/reconnecting-websocket.js %}
-{% include static/js/wsInit.js %}
-{% include static/js/wsSendMessage.js %}
-{% include static/js/admin_wsOnMessage.js %}
-{% include static/js/admin.js %}
-{% include static/js/cookie.js %}
-{% include static/js/time.js %}
-{% include static/js/admin_queue.js %}
-{% include static/js/admin_users.js %}
+<script type="text/javascript" src="/static/js/reconnecting-websocket.js"></script>
+<script type="text/javascript" src="/static/js/wsInit.js"></script>
+<script type="text/javascript" src="/static/js/wsSendMessage.js"></script>
+<script type="text/javascript" src="/static/js/admin_wsOnMessage.js"></script>
+<script type="text/javascript" src="/static/js/admin.js"></script>
+<script type="text/javascript" src="/static/js/cookie.js"></script>
+<script type="text/javascript" src="/static/js/time.js"></script>
+<script type="text/javascript" src="/static/js/admin_queue.js"></script>
+<script type="text/javascript" src="/static/js/admin_users.js"></script>

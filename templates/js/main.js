@@ -1,12 +1,12 @@
-{% include static/js/wsInit.js %}
-{% include static/js/misc.js %}
-{% include static/js/cookie.js %}
-{% include static/js/time.js %}
-{% include static/js/youtube.js %}
-{% include static/js/chat.js %}
-{% include static/js/opinion.js %}
-{% include static/js/alert.js %}
-{% include static/js/queue.js %}
-{% include static/js/wsSendMessage.js %}
-{% include static/js/wsOnMessage.js %}
-{% include static/js/video.js %}
+<script type="text/javascript" src="/static/js/wsInit.js"></script>
+<script type="text/javascript" src="/static/js/misc.js"></script>
+<script type="text/javascript" src="/static/js/cookie.js"></script>
+<script type="text/javascript" src="/static/js/time.js"></script>
+<script type="text/javascript" src="/static/js/youtube.js"></script>
+<script type="text/javascript" src="/static/js/chat.js"></script>
+<script type="text/javascript" src="/static/js/opinion.js"></script>
+<script type="text/javascript" src="/static/js/alert.js"></script>
+<script type="text/javascript" src="/static/js/queue.js"></script>
+<script type="text/javascript" src="/static/js/wsSendMessage.js"></script>
+<script type="text/javascript" src="/static/js/wsOnMessage.js"></script>
+<script type="text/javascript" src="/static/js/video.js"></script>
