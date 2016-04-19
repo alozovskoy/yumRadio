@@ -82,6 +82,16 @@ ws.onmessage = function (evt) {
             placeAlert('success', data['msg']);
             break
             
+        case 'users':
+            switch (action){
+                case 'countInRoom':
+                    showUsersCount(data['usersCount']);
+                    
+                break
+                
+            }
+            break
+            
 		default:
 			console.log('Error - type = ' + type);
 	}

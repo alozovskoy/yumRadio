@@ -24,18 +24,24 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         return None
         
     def users(self, data):
-        if 'adminkey' in data.keys():
-            with open(serverDir + '/adminkey', 'r') as f:
-                adminkey = f.readline().split()[0]
-            if data['adminkey'] == adminkey:
-                if data['action'] == 'getUsers':
-                    self.send_one({
-                        'type':     'users',
-                        'action':   'getUsers',
-                        'users':    radio['ustack'].get()})
-                if data['action'] == 'deleteUser':
-                    radio['ustack'].delete(data['user'])
-                    
+        global radio
+        if data['action'] in ['getUsers', 'deleteUser']:
+            if 'adminkey' in data.keys():
+                with open(serverDir + '/adminkey', 'r') as f:
+                    adminkey = f.readline().split()[0]
+                if data['adminkey'] == adminkey:
+                    if data['action'] == 'getUsers':
+                        self.send_one({
+                            'type':     'users',
+                            'action':   'getUsers',
+                            'users':    radio['ustack'].get()})
+                    if data['action'] == 'deleteUser':
+                        radio['ustack'].delete(data['user'])
+        if data['action'] == 'countInRoom':
+            self.send_one({
+                'type':         'users',
+                'action':       'countInRoom',
+                'usersCount':   str(radio['ustack'].getSizeInRoom())})
         return None
 
     def video(self, data):
