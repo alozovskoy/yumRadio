@@ -134,12 +134,12 @@ class URIHandler(tornado.web.RequestHandler):
                     pageVars['start'] = currenttime
                     pageVars['video'] = currentvideo
                     self.set_status(200)
-                    self.render(serverDir + '/templates/pages/' + page, **pageVars)
+                    self.render(serverDir + '/templates/' + page, **pageVars)
                 except Exception, e:
                     logging.error('MainERROR: %s (%s)' % (e, Exception))
                     raise
                     self.set_status(404)
-                    self.render(serverDir + '/templates/pages/404', **templVars)
+                    self.render(serverDir + '/templates/404', **templVars)
         self.set_header('Connection', 'close')
         
 ws.radio = radio
