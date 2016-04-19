@@ -105,8 +105,6 @@ class URIHandler(tornado.web.RequestHandler):
                     self.set_status(200)
                     self.render(serverDir + '/templates/pages/login', **templVars)
                 else:
-                    logging.info('google')
-                    logging.info(self.request.uri)
                     resource = auth.getResource(self.request.uri)
                     if resource:
                         userid = hashlib.sha512(resource['id']).hexdigest()
