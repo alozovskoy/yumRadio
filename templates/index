@@ -50,9 +50,14 @@ $.getScripts(jsList);
 {% import ast %}
 {% import textwrap %}
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
+        <p class="text-left">
+            <b>Сейчас играет:</b> <span id="currentVideo"></span>
+        </p>
+    </div>
+    <div class="col-md-6">
         <p class="text-right">
-            Человек в комнате: <span id="countInRoom">0</span>
+            <b>Человек в комнате:</b> <span id="countInRoom">0</span>
         </p>
     </div>
 </div>
@@ -83,15 +88,6 @@ $.getScripts(jsList);
                 </p>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <p>
-                    <b>Сейчас играет:</b> <span id="currentVideo"></span>
-                </p>
-            </div>
-        </div>
-       
-       
         <div class="row">
             <div class="col-md-12">
                 <div class="col-md-3">
