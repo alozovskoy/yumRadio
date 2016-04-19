@@ -11,6 +11,20 @@ class Stack(object):
 
     def __init__(self):
         self.items = {}
+        self.usersInRoom = []
+        
+    def addToRoom(self, item):
+        if item not in self.usersInRoom:
+            self.usersInRoom.append(item)
+        return None
+        
+    def removeFromRoom(self, item):
+        if item in self.usersInRoom = []
+            self.usersInRoom.remove(item)
+        return None
+        
+    def getUsersInRoom(self):
+        return self.usersInRoom
 
     def isEmpty(self):
         return len(self.items.keys()) == 0
@@ -28,6 +42,8 @@ class Stack(object):
             return None
 
     def push(self, item):
+        self.setTime(str(item))
+        self.addToRoom(str(item))
         if item not in self.items.keys():
             self.items[str(item)] = {}
             self.items[str(item)]['names'] = []
@@ -35,7 +51,6 @@ class Stack(object):
             return self.items[str(item)]['cookie']
         else:
             return self.items[str(item)]['cookie']
-        self.setTime(str(item))
 
     def appendName(self, item, name):
         if item in self.items.keys():
@@ -52,6 +67,7 @@ class Stack(object):
 
     def delete(self, item):
         self.items.pop(item, None)
+        self.removeFromRoom(item)
         return None
 
     def get(self):
