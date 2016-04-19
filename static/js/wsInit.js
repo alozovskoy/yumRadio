@@ -1,5 +1,3 @@
-{% include reconnecting-websocket.js %}
-
 var $wsStatus = $('#wsStatus');
 
 var ws = new ReconnectingWebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.hostname + ':' + window.location.port + '/ws');

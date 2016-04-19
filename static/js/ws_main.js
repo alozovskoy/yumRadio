@@ -2,8 +2,8 @@ var $wsStatus = $('#wsStatus');
 
 var ws = new ReconnectingWebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.hostname + ':' + window.location.port + '/ws');
 
-var pingStartTime=0;
-var latency = 0;
+pingStartTime=0;
+latency = 0;
 
 ws.onopen = function(){
 $wsStatus.attr("class", 'btn btn-success navbar-btn');

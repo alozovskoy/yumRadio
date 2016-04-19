@@ -1,11 +1,11 @@
-var currentVideoOnClient;
-var currentTimeOnClient;
-var currentVideoOnServer;
-var currentTimeOnServer;
+currentVideoOnClient;
+currentTimeOnClient;
+currentVideoOnServer;
+currentTimeOnServer;
 
-var playerHeight;
+playerHeight;
 
-var currentVideoTitle = '';
+currentVideoTitle = '';
 
 var tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
