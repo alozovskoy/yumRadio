@@ -72,7 +72,7 @@ class Stack(object):
         return len(self.usersInRoom)
 
     def getAll(self):
-        return self.items
+        return self.items.keys()
 
     def delete(self, item):
         self.items.pop(item, None)
