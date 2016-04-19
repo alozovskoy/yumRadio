@@ -23,7 +23,8 @@ var jsList = [
     "/static/js/time.js", 
     "/static/js/youtube.js", 
     "/static/js/chat.js", 
-    "/static/js/opinion.js", 
+    "/static/js/opinion.js",
+    "/static/js/notify.js", 
     "/static/js/alert.js", 
     "/static/js/wsSendMessage.js", 
     "/static/js/wsOnMessage.js", 
@@ -129,12 +130,6 @@ $.getScripts(jsList);
             </div>
             
 			</form>
-        </div>
-		<br />
-        <div class="row">
-            <div class="col-md-12">
-				<div id="alerts"></div>
-            </div>
         </div>
     </div>
 

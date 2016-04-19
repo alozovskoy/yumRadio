@@ -59,13 +59,13 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                             'action': 'getQueue',
                             'queue': radio['qstack'].get()})
                     else:
-                        status = 'warning'
+                        status = 'warn'
                         msg = 'Такой трек в очереди уже есть'
                 else:
-                    status = 'danger'
+                    status = 'error'
                     msg = 'ID трека не прошел валидацию'
             else:
-                status = 'warning'
+                status = 'warn'
                 msg = 'Очередь переполнена'
 
             self.send_one({
