@@ -92,11 +92,14 @@ class URIHandler(tornado.web.RequestHandler):
             page = 'index'
 
         if page.startswith(('/login', '/static', '/favicon.ico')):
+            contentType = ''
             if page == '/favicon.ico':
-                    self.set_status(404)
-                    self.render(serverDir + '/templates/empty')
-            elif page.startswith('/static'):
+                page = '/static/img/favicon.ico'
+                contentType = 'image/x-icon'
+            if page.startswith('/static'):
                 with open(serverDir + page,'r') as staticfile:
+                    if contentType:
+                        self.set_header("Content-Type", contentType)
                     self.write(staticfile.read())
             else:
                 if self.request.uri == '/login':
