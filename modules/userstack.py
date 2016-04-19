@@ -96,7 +96,8 @@ class Stack(object):
         return None
         
     def getTime(self, userid):
-        if userid in self.items.keys():
+        if userid in self.items.keys() and \
+                'lasttime' in self.items[userid].keys():
             return self.items[userid]['lasttime']
         else:
-            return None
+            return 0
