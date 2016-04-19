@@ -64,6 +64,12 @@ class Stack(object):
 
     def size(self):
         return len(self.items)
+        
+    def getInRoom(self):
+        return self.usersInRoom
+        
+    def getSizeInRoom(self):
+        return len(self.usersInRoom)
 
     def delete(self, item):
         self.items.pop(item, None)
