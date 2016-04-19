@@ -19,7 +19,7 @@ class Stack(object):
         return None
         
     def removeFromRoom(self, item):
-        if item in self.usersInRoom = []
+        if item in self.usersInRoom:
             self.usersInRoom.remove(item)
         return None
         
