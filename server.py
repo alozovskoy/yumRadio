@@ -129,8 +129,9 @@ class URIHandler(tornado.web.RequestHandler):
                 self.redirect('/login')
                 return
             else:
+                pageVars = {}
+                pageVars['page'] = page
                 try:
-                    pageVars = {}
                     currenttime = threads.gettime()
                     currentvideo = radio['qstack'].getCurrent()
                     pageVars['start'] = currenttime
