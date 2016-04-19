@@ -1,6 +1,6 @@
 var $wsStatus = $('#wsStatus');
 
-var ws = new ReconnectingWebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.hostname + ':' + window.location.port + '/ws');
+ws = new ReconnectingWebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.hostname + ':' + window.location.port + '/ws');
 
 pingStartTime=0;
 latency = 0;

@@ -1,6 +1,6 @@
-var $wsStatus = $('#wsStatus');
+$wsStatus = $('#wsStatus');
 
-var ws = new ReconnectingWebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.hostname + ':' + window.location.port + '/ws');
+ws = new this.ReconnectingWebSocket((location.protocol === 'https:' ? 'wss://' : 'ws://') + window.location.hostname + ':' + window.location.port + '/ws');
 
 ws.onopen = function(){
 $wsStatus.attr("class", 'btn btn-success navbar-btn');
