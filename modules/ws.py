@@ -50,17 +50,21 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         if data['action'] == 'videoAdd':
             if radio['qstack'].size() < 30:
                 if youtubeID.match(data['id']):
-                    if radio['qstack'].push(data['id']):
-                        status = 'success'
-                        msg = 'Добавлено в очередь'
-
-                        self.send_all({
-                            'type': 'video',
-                            'action': 'getQueue',
-                            'queue': radio['qstack'].get()})
-                    else:
+                    if radio['qstack'].getCurrent() == data['id']:
                         status = 'warn'
-                        msg = 'Такой трек в очереди уже есть'
+                        msg = "Этот трек сейчас воспроизводится"
+                    else:
+                        if radio['qstack'].push(data['id']):
+                            status = 'success'
+                            msg = 'Добавлено в очередь'
+    
+                            self.send_all({
+                                'type': 'video',
+                                'action': 'getQueue',
+                                'queue': radio['qstack'].get()})
+                        else:
+                            status = 'warn'
+                            msg = 'Такой трек в очереди уже есть'
                 else:
                     status = 'error'
                     msg = 'ID трека не прошел валидацию'
