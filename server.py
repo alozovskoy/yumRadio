@@ -50,8 +50,6 @@ radio = {}
 
 radio['qstack'] = queuestack.Stack()
 radio['qstack'].youtube = youtube
-#radio['qstack'].push('ldK1gQSSTSo')
-#radio['qstack'].pop()
 
 
 radio['ustack'] = userstack.Stack()
