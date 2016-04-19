@@ -27,8 +27,6 @@ function wsOnQueue(data){
 videoGetQueue();
 setInterval(videoGetQueue, 1000);
 
-var $adminkey = $("input[name='adminkey']");
-
 function videoNext(){
 
 	var adminkey = $adminkey.val();

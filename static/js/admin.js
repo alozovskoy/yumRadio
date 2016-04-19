@@ -1,1 +1,1 @@
-
+$adminkey = $("input[name='adminkey']");
