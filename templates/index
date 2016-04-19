@@ -38,12 +38,19 @@ $.getScripts(jsList);
 </script>
 {% end %}
 {% block header %}
-    <form class="navbar-form" role="search">
-        <div class="form-group">
-            <input type="text" class="form-control" name="chatUser" id="chatUser" title="Как вас представить?" value="anonimous" onkeypress="if(event.keyCode==13){ return false;}"></input>
-            <a href='/profile' class="btn btn-warning" title="Перейти к странице информации об учетной записи">Profile</a>
-        </div>
-    </form>
+                        <form class="navbar-form" role="search">
+                            <div class="form-group">
+                                <input 
+                                    type="text" 
+                                    class="form-control" 
+                                    name="chatUser" 
+                                    id="chatUser" 
+                                    title="Как вас представить?" 
+                                    value="anonimous" 
+                                    onkeypress="if(event.keyCode==13){ return false;}"/>
+                                <a href='/profile' class="btn btn-warning" title="Перейти к странице информации об учетной записи">Профиль</a>
+                            </div>
+                        </form>
 {% end %}
 {% block content %}
 {% import datetime %}
@@ -105,30 +112,31 @@ $.getScripts(jsList);
                 </div>
             </div>
         </div>
-        
         <div class="row">
-			<form id="video">
-            <div class="col-md-6">
-                <input type="text" class="form-control" name="videoid" id="videoid" placeholder="videoid">
-            </div>
-            <div class="col-md-2">
-                <button class="btn btn-success">Send</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12 dropup">
-                <button 
-                    class="btn btn-primary dropdown-toggle btn-block" 
-                    type="button" 
-                    data-toggle="dropdown" 
-                    aria-haspopup="true" 
-                    aria-expanded="true">
-                    Очередь
-                    <span class="caret"></span>
-                </button>
-                    <ul class="dropdown-menu pull-center" id="queue" aria-labelledby="queue" style="width: 100%;"></ul>
-            </div>
-            
+            <form id="video">
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" class="form-control" name="videoid" id="videoid" placeholder="videoid">
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-success">Предложить</button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-12 dropup">
+                        <button 
+                            class="btn btn-primary dropdown-toggle btn-block" 
+                            type="button" 
+                            data-toggle="dropdown" 
+                            aria-haspopup="true" 
+                            aria-expanded="true">
+                            Очередь
+                            <span class="caret"></span>
+                        </button>
+                            <ul class="dropdown-menu pull-center" id="queue" aria-labelledby="queue" style="width: 100%;"></ul>
+                    </div>
+                </div>
 			</form>
         </div>
     </div>
@@ -140,9 +148,8 @@ $.getScripts(jsList);
         </div>
         <div class="row">
             <div class="col-md-12">
-                <form id="chat" onsubmit="return false;">
+                <form id="chat" onsubmit="return false;" role="form">
                     <div class="form-group">
-                    <form role="form">
                         <div class="col-sm-12">
                             <textarea
                                 row=2
@@ -157,9 +164,8 @@ $.getScripts(jsList);
                                 style="resize: none; background: transparent;"></textarea>
                         </div>
                         <div class="col-sm-12">
-                        <button type="button" class="btn btn-success btn-block" onclick="chatSendMessage();">Send</button>
+                        <button type="button" class="btn btn-success btn-block" onclick="chatSendMessage();">Отправить сообщение</button>
                         </div>
-                    </form>
                     </div>
                 </form>
             </div>

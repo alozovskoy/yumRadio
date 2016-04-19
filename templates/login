@@ -21,7 +21,7 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-block btn-success" onclick='window.location.replace("{{target}}");'>ВОЙТИ</bitton>
+        <button class="btn btn-block btn-success" onclick='window.location.replace("{{target}}");'>ВОЙТИ</button>
     </div>
 </div>
 {% end %}

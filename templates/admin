@@ -34,7 +34,7 @@ $.getScripts(jsList);
 {% block header %}
     <form class="navbar-form" role="search">
         <div class="form-group">
-            <input type="password" class="form-control" name="adminkey" id="adminkey" placeholder="AdminKey" onkeypress="if(event.keyCode==13){ return false;}"></input>
+            <input type="password" class="form-control" name="adminkey" id="adminkey" placeholder="AdminKey" onkeypress="if(event.keyCode==13){ return false;}"/>
         </div>
     </form>
 {% end %}
