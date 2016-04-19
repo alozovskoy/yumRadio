@@ -53,7 +53,7 @@ $.getScripts(jsList);
 <div class="row">
     <div class="col-md-6">
         <p class="text-left">
-            <b>Сейчас играет:</b> <span id="currentVideo"></span>
+            <b><span id="currentVideoDescription"></span></b> <span id="currentVideoTitle"></span>
         </p>
     </div>
     <div class="col-md-6">

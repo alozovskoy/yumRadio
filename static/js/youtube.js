@@ -45,7 +45,13 @@ function StartVideo(){
 
     function nowPlayTitle(){
         currentVideoTitle = player.getVideoData().title;
-        $('#currentVideo').text(currentVideoTitle);
+        if (currentVideoTitle){
+            $('#currentVideoTitle').text(currentVideoTitle);
+            $('#currentVideoDescription').text('Сейчас играет: ');
+        } else {
+            $('#currentVideoDescription').text('');
+            $('#currentVideoTitle').text('');
+        }
         return false;
     };
     
