@@ -19,6 +19,7 @@ var jsList = [
     "/static/js/reconnecting-websocket.js", 
     "/static/js/wsInit.js", 
     "/static/js/wsSendMessage.js", 
+    "/static/js/tagreplace.js",
     "/static/js/admin_wsOnMessage.js", 
     "/static/js/admin.js", 
     "/static/js/cookie.js", 

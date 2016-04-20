@@ -20,6 +20,7 @@ var jsList = [
     "/static/js/wsInit.js", 
     "/static/js/misc.js", 
     "/static/js/cookie.js", 
+    "/static/js/tagreplace.js",
     "/static/js/time.js", 
     "/static/js/youtube.js", 
     "/static/js/chat.js", 

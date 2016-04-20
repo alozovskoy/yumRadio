@@ -14,20 +14,6 @@ function intToRGB(i){
     return "00000".substring(0, 6 - c.length) + c;
 }
 
-var tagsToReplace = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;'
-};
-
-function replaceTag(tag) {
-    return tagsToReplace[tag] || tag;
-}
-
-function safe_tags_replace(str) {
-    return str.replace(/[&<>]/g, replaceTag);
-}
-
 function chatGetMessage(name, msg){
 	var username = safe_tags_replace(name);
 	var usernamecolor = intToRGB(hashCode(username));
