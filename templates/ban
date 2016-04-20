@@ -1,0 +1,16 @@
+{% extends "templates/main" %}
+{% block content%}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <p class="text-center">
+            Твоя учетка заблокирована
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <button class="btn btn-block btn-success" onclick='window.location.replace("/login");'>Вернуться на форму входа</button>
+    </div>
+</div>
+{% end %}
+
