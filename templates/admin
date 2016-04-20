@@ -20,12 +20,13 @@ var jsList = [
     "/static/js/wsInit.js", 
     "/static/js/wsSendMessage.js", 
     "/static/js/tagreplace.js",
-    "/static/js/admin_wsOnMessage.js", 
     "/static/js/admin.js", 
     "/static/js/cookie.js", 
     "/static/js/time.js", 
+    "/static/js/admin_ban.js",
     "/static/js/admin_queue.js", 
-    "/static/js/admin_users.js"
+    "/static/js/admin_users.js",
+    "/static/js/admin_wsOnMessage.js"
 ];
 
 $.getScripts(jsList);
@@ -83,7 +84,14 @@ $.getScripts(jsList);
 </div>
 
 <div class="row" id="banRow">
-BAN
+    <div class=row>
+        <div class="col-md-12" id="ban"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-success btn-block" name="getUsers" onclick="getBan();">Обновить список забаненных</button>
+        </div>
+    </div>
 </div>
 
 <div class="row" id="sendRow">
