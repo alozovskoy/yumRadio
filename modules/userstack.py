@@ -36,7 +36,7 @@ class Stack(object):
             return None
 
     def getNames(self, item):
-        if item in items.keys():
+        if item in self.items.keys():
             return self.items[str(item)]['names']
         else:
             return None
