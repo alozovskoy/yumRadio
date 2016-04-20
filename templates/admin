@@ -44,28 +44,50 @@ $.getScripts(jsList);
 {% import re %}
 {% import ast %}
 {% import textwrap %}
+
 <div class="row">
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-12" id="queue"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <button class="btn btn-success btn-block" name="next" onclick="videoNext();">Следующий трек</button>
-            </div>
+    <div class="col-md-3">
+        <button class="btn btn-success btn-block" id="queueButton" onclick="showPage('queueRow', this.id);">Очередь</button>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary btn-block" id="usersButton" onclick="showPage('usersRow', this.id);">Пользователи</button>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary btn-block" id="banButton" onclick="showPage('banRow', this.id);">Бан</button>
+    </div>
+    <div class="col-md-3">
+        <button class="btn btn-primary btn-block" id="sendButton" onclick="showPage('sendRow', this.id);">Рассылка</button>
+    </div>
+</div>
+
+<div class="row" id="queueRow">
+    <div class="row">
+        <div class="col-md-12" id="queue"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-success btn-block" name="next" onclick="videoNext();">Следующий трек</button>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="row">
-            <div class="col-md-12" id="users"></div>
-        </div>
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <button class="btn btn-success btn-block" name="getUsers" onclick="getUsers();">Обновить список пользователей</button>
-            </div>
+</div>
+
+<div class="row" id="usersRow">
+    <div class=row>
+        <div class="col-md-12" id="users"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-success btn-block" name="getUsers" onclick="getUsers();">Обновить список пользователей</button>
         </div>
     </div>
-    
+</div>
+
+<div class="row" id="banRow">
+BAN
+</div>
+
+<div class="row" id="sendRow">
+SEND
 </div>
 
 {% end %}
