@@ -91,7 +91,7 @@ class URIHandler(tornado.web.RequestHandler):
         if page == '/':
             page = 'index'
 
-        if page.startswith(('/login', '/static', '/favicon.ico')):
+        if page.startswith(('/login', '/static', '/favicon.ico', '/ban', '/404')):
             contentType = ''
             if page == '/favicon.ico':
                 page = '/static/img/favicon.ico'
@@ -102,23 +102,37 @@ class URIHandler(tornado.web.RequestHandler):
                         self.set_header("Content-Type", contentType)
                     self.write(staticfile.read())
             else:
-                if self.request.uri == '/login':
-                    templVars['target'] = auth.getUserConfirm()
-                    self.set_status(200)
-                    self.render(serverDir + '/templates/login', **templVars)
-                else:
-                    resource = auth.getResource(self.request.uri)
-                    if resource:
-                        userid = hashlib.sha512(resource['id']).hexdigest()
-                        sessionid = radio['ustack'].push(userid)
-                        self.set_cookie('userid', userid)
-                        self.set_cookie('sessionid', sessionid)
-                        self.redirect('/')
+                try:
+                    if page == '/login':
+                        if self.request.uri == '/login':
+                            templVars['target'] = auth.getUserConfirm()
+                            self.set_status(200)
+                            self.render(serverDir + '/templates/login', **templVars)
+                            return
+                        else:
+                            resource = auth.getResource(self.request.uri)
+                            if resource:
+                                userid = hashlib.sha512(resource['id']).hexdigest()
+                                sessionid = radio['ustack'].push(userid)
+                                if sessionid:
+                                    self.set_cookie('userid', userid)
+                                    self.set_cookie('sessionid', sessionid)
+                                    self.redirect('/')
+                                else:
+                                    self.redirect('/ban')
+                                return
+                    elif self.request.uri == '/ban':
+                        self.set_status(200)
+                        self.render(serverDir + '/templates/ban', **templVars)
                         return
                     else:
-    # TODO: Вставить страничку с информированием о проблеме со входом
                         self.redirect('/login')
                         return
+                except Exception, e:
+                    logging.error('MainERROR: %s (%s)' % (e, Exception))
+                    raise
+                    self.set_status(404)
+                    self.render(serverDir + '/templates/404', **templVars)
         else:
 
             userid = self.get_cookie('userid')
@@ -127,6 +141,9 @@ class URIHandler(tornado.web.RequestHandler):
             if not sessionid or not userid or \
                     sessionid != radio['ustack'].getCookie(userid):
                 self.redirect('/login')
+                return
+            elif radio['ustack'].isBan(userid):
+                self.redirect('/ban')
                 return
             else:
                 pageVars = {}
