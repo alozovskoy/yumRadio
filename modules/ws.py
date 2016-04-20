@@ -25,7 +25,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         
     def users(self, data):
         global radio
-        if data['action'] in ['getUsers', 'deleteUser']:
+        if data['action'] in ['getUsers', 'deleteUser', 'ban', 'unban', 'getBan']:
             if 'adminkey' in data.keys():
                 with open(serverDir + '/adminkey', 'r') as f:
                     adminkey = f.readline().split()[0]
@@ -37,6 +37,17 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                             'users':    radio['ustack'].get()})
                     if data['action'] == 'deleteUser':
                         radio['ustack'].delete(data['user'])
+                    if data['action'] == 'ban':
+                        description = data['description'] if 'description' in data.keys() else None
+                        time = data['time'] if 'time' in data.keys() else None
+                        radio['ustack'].banUser(data['banid'], description = description, time = time)
+                    if data['action'] == 'unban':
+                        radio['ustack'].unbanUser(data['unbanid'])
+                    if data['action'] == 'getban':
+                        self.send_one({
+                            'type':     'users',
+                            'action':   'getban',
+                            'ban':      radio['ustack'].getBan()})
         if data['action'] == 'countInRoom':
             self.send_one({
                 'type':         'users',

@@ -12,6 +12,30 @@ class Stack(object):
     def __init__(self):
         self.items = {}
         self.usersInRoom = []
+        self.ban = {}
+        
+    def banUser(self, userid, description = None, time = int(time.time() + 600)):
+        self.ban[userid] = {
+            'description':  description,
+            'time':         time}
+        self.delete(userid)
+        return None
+    
+    def getBan(self, userid):
+        if userid in self.ban.keys():
+            return self.ban[userid]
+        else:
+            return None
+            
+    def unbanUser(self, userid):
+        self.ban.pop(userid, None)
+        return None
+        
+    def isBan(self, userid):
+        if userid in self.ban.keys():
+            return True
+        else:
+            return False
         
     def addToRoom(self, item):
         if item not in self.usersInRoom:
@@ -42,6 +66,8 @@ class Stack(object):
             return None
 
     def push(self, item):
+        if self.isBan(item):
+            return None
         self.setTime(str(item))
         self.addToRoom(str(item))
         if item not in self.items.keys():
