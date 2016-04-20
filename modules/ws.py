@@ -59,7 +59,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                         status = 'warn'
                         msg = "Этот трек сейчас воспроизводится"
                     else:
-                        if radio['qstack'].push(data['id']):
+                        if radio['qstack'].push(data['id'], data['userid']):
                             status = 'success'
                             msg = 'Добавлено в очередь'
     
@@ -106,10 +106,16 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 'time': radio['threads'].gettime()})
 
         if data['action'] == 'videoGetQueue':
+            admin = False
+            if 'adminkey' in data.keys():
+                with open(serverDir + '/adminkey', 'r') as f:
+                    adminkey = f.readline().split()[0]
+                if data['adminkey'] == adminkey:
+                    admin = True
             self.send_one({
                 'type': 'video',
                 'action': 'getQueue',
-                'queue': radio['qstack'].get()})
+                'queue': radio['qstack'].get(admin)})
 
         if data['action'] == 'videGetNext':
             if not radio['qstack'].isEmpty():
