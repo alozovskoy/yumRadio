@@ -33,6 +33,11 @@ class Stack(object):
                 self.items[item]['duration'] = int(
                     isodate.parse_duration(duration).total_seconds())
                 self.items[item]['opinions'] = { 'like': [], 'dislike': [] }
+                thumbnail = youtube.getThumbnail(item)
+                if thumbnail:
+                    self.items[item]['thumbnail'] = thumbnail
+                else:
+                    self.items[item]['thumbnail'] = '/static/img/blank.png'
                 return True
             else:
                 return False
@@ -101,8 +106,11 @@ class Stack(object):
     def get(self):
         data = {}
         for i in enumerate(self.itemsList):
-            _data = {'item': i[1], 'name': self.items[i[1]][
-                'name'], 'duration': self.items[i[1]]['duration']}
+            _data = {
+                'item':         i[1], 
+                'name':         self.items[i[1]]['name'], 
+                'duration':     self.items[i[1]]['duration'],
+                'thumbnail':    self.items[i[1]]['thumbnail']}
             data[i[0]] = json.dumps(_data)
         return json.dumps(data)
 
