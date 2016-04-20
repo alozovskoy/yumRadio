@@ -89,6 +89,9 @@ ws.onmessage = function (evt) {
                     
                 break
                 
+                case 'getNickNames':
+                        wsOnNicknames(data['nicknames']);
+                break
             }
             break
             

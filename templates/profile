@@ -18,7 +18,8 @@ $.getScripts = function (files){
 var jsList = [
     "/static/js/reconnecting-websocket.js", 
     "/static/js/wsInit.js", 
-    "/static/js/misc.js", 
+    "/static/js/misc.js",
+    "/static/js/tagreplace.js",
     "/static/js/cookie.js",
     "/static/js/notify.js", 
     "/static/js/alert.js", 
@@ -52,7 +53,10 @@ $.getScripts(jsList);
                 <button class="btn btn-block btn-danger" onclick="logoutAll();">Выйти из всех сессий</button>
             </div>
         </div>
-    </div>   
+    </div>  
+    <div class="col-md-4">
+        <div id="userNicknames"></div>
+    </div> 
 </div>
 {% end %}
 

@@ -14,3 +14,29 @@ function logoutAll(){
 }
 
 checkSessionData();
+
+function userGetNicknames(){
+    sendMessage(JSON.stringify({type: "users", action: "getNicknames"}));
+    return false;
+};
+
+function wsOnNicknames(data){ 
+            console.log(data);
+	var nicknames = JSON.parse(data);
+	var tableHead = '<table class="table table-striped table-condensed table-bordered"><thead><tr><th colspan="2">Используемые ники</th></tr></thead><tbody>';
+	var tableTail = '</tbody></table>';
+    var tableData = '';
+	if ( nicknames.length > 0 ){
+		for (var key = 0; key < nicknames.length ; key++) {
+			tableData += '<tr><td>' + (key + 1) + '</td><td>' + safe_tags_replace(nicknames[key])+ '</td></tr>'
+		}
+	}
+	else {
+		var tableData = '<tr><td colspan="2">Ты ничего не писал в чате</td></tr>'
+	}
+	
+	$('#userNicknames').html(tableHead + tableData + tableTail);
+};
+
+userGetNicknames();
+setInterval(userGetNicknames, 1000);
