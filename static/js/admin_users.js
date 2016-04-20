@@ -46,3 +46,9 @@ function deleteUser(userid){
 
 getUsers();
 setInterval(getUsers, 1000);
+
+function banUser(userid){
+    
+    alert('ban ' + userid);
+    
+}

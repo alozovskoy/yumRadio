@@ -15,7 +15,13 @@ function wsOnQueue(data){
 		for (var key = 0; key < Object.keys(queue).length ; key++) {
 			var item = JSON.parse(queue[key]);
 			time = parseInt(item['duration'])
-			tableData += '<td>' + item['name'] + ', ' + toFormattedTime(time, true, false)  + '</td><td><button class="btn btn-block btn-warning" onclick="videoDelete(\'' + item['item'] + '\');">DEL</button></td><td>' + item['userid'] + '</td></tr>'
+			tableData += '<td>' + item['name'] + ', ' + toFormattedTime(time, true, false)  + '</td><td><button class="btn btn-block btn-warning" onclick="videoDelete(\'' + item['item'] + '\');">DEL</button></td>'
+            if (item['userid']){
+                
+                tableData += '<td><button class="btn btn-block btn-danger" onclick="banUser(\'' + item['userid'] + '\'); videoDelete(\'' + item['item'] + '\');">Забанить</button></td>'
+                
+            }
+            tableData += '</tr>'
 		}
 	}
 	else {
