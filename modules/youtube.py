@@ -18,6 +18,20 @@ part=snippet&id=%s&fields=items%%2Fsnippet(title)&key=%s' % (videoid, apikey)
             title = answer['items'][0]['snippet']['title']
     return title
 
+def getThumbnail(videoid):
+    thumbnail = None
+    with open(serverDir + '/apikey', 'r') as f:
+        apikey = f.readline().split()[0]
+    url = 'https://www.googleapis.com/youtube/v3/videos?\
+part=snippet&id=%s&\
+fields=items%%2Fsnippet(thumbnails)&key=%s' % (videoid, apikey)
+    data = urllib2.urlopen(url)
+    if data.code == 200:
+        answer = json.loads(data.read())
+        if len(answer['items']) == 1:
+            thumbnail = answer['items'][0]['snippet']\
+                ['thumbnails']['default']['url']
+    return thumbnail
 
 def getDuration(videoid):
     duration = None
