@@ -1,5 +1,6 @@
 function videoGetQueue(){
-    sendMessage(JSON.stringify({type: "video", action: "videoGetQueue"}));
+    var adminkey = $adminkey.val();
+    sendMessage(JSON.stringify({type: "video", action: "videoGetQueue", adminkey: adminkey}));
     return false;
 };
 
@@ -14,7 +15,7 @@ function wsOnQueue(data){
 		for (var key = 0; key < Object.keys(queue).length ; key++) {
 			var item = JSON.parse(queue[key]);
 			time = parseInt(item['duration'])
-			tableData += '<td>' + item['name'] + ', ' + toFormattedTime(time, true, false)  + '</td><td><button class="btn btn-block btn-warning" onclick="videoDelete(\'' + item['item'] + '\');">DEL</button></td></tr>'
+			tableData += '<td>' + item['name'] + ', ' + toFormattedTime(time, true, false)  + '</td><td><button class="btn btn-block btn-warning" onclick="videoDelete(\'' + item['item'] + '\');">DEL</button></td><td>' + item['userid'] + '</td></tr>'
 		}
 	}
 	else {
