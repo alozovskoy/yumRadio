@@ -22,7 +22,7 @@ class Stack(object):
     def size(self):
         return len(self.itemsList)
 
-    def push(self, item):
+    def push(self, item, userid):
         if item not in self.items.keys():
             title = youtube.getTitle(item)
             duration = youtube.getDuration(item)
@@ -30,6 +30,7 @@ class Stack(object):
                 self.itemsList.append(item)
                 self.items[item]={}
                 self.items[item]['name'] = title
+                self.items[item]['userid'] = userid
                 self.items[item]['duration'] = int(
                     isodate.parse_duration(duration).total_seconds())
                 self.items[item]['opinions'] = { 'like': [], 'dislike': [] }
@@ -60,7 +61,6 @@ class Stack(object):
 
     def getCurrent(self):
         return self.current
-
 
     def setOpinion(self, opinion, userid):
         anotherOpinion = 'dislike' if opinion == 'like' else 'like'
@@ -103,7 +103,7 @@ class Stack(object):
             return None
 
 
-    def get(self):
+    def get(self, admin = False):
         data = {}
         for i in enumerate(self.itemsList):
             _data = {
@@ -111,6 +111,8 @@ class Stack(object):
                 'name':         self.items[i[1]]['name'], 
                 'duration':     self.items[i[1]]['duration'],
                 'thumbnail':    self.items[i[1]]['thumbnail']}
+            if admin:
+                _data['userid'] = self.items[i[1]]['userid']
             data[i[0]] = json.dumps(_data)
         return json.dumps(data)
 
