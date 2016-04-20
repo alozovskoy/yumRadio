@@ -115,11 +115,35 @@ $.getScripts(jsList);
         <div class="row">
             <form id="video">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <input type="text" class="form-control" name="videoid" id="videoid" placeholder="videoid">
                     </div>
-                    <div class="col-md-2">
-                        <button class="btn btn-success">Предложить</button>
+                    <div class="col-md-4">
+                        <button class="btn btn-success btn-block">Предложить</button>
+                    </div>
+                    <div class="col-md-4 dropup">
+                        <button 
+                            class="btn btn-warning dropdown-toggle btn-block" 
+                            data-toggle="dropdown" 
+                            aria-haspopup="true" 
+                            aria-expanded="true">
+                            Как добавить
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-center" aria-labelledby="queue" style="width: 600px;">
+                        <p>
+                            В очередь следует добавлять треки с <a href="https://youtube.com">YouTube</a> по их ID, который берется из адреса странички трека.
+                        </p>
+                        <p>
+                            Примеры ID (<span class="text-warning"><b>выделены</b></span>):
+                            <br />
+                            https://www.youtube.com/watch?v=<span class="text-warning"><b>ldK1gQSSTSo</b></span>
+                            <br />
+                            https://www.youtube.com/watch?v=<span class="text-warning"><b>ldK1gQSSTSo</b></span>&list=RDldK1gQSSTSo#t=306
+                            <br />
+                            https://youtu.be/<span class="text-warning"><b>ldK1gQSSTSo</b></span>?t=5m27s
+                        </p>
+                        </ul>
                     </div>
                 </div>
                 
@@ -127,14 +151,13 @@ $.getScripts(jsList);
                     <div class="col-md-12 dropup">
                         <button 
                             class="btn btn-primary dropdown-toggle btn-block" 
-                            type="button" 
                             data-toggle="dropdown" 
                             aria-haspopup="true" 
                             aria-expanded="true">
                             Очередь
                             <span class="caret"></span>
                         </button>
-                            <ul class="dropdown-menu pull-center" id="queue" aria-labelledby="queue" style="width: 100%;"></ul>
+                        <ul class="dropdown-menu pull-center" id="queue" aria-labelledby="queue" style="width: 100%;"></ul>
                     </div>
                 </div>
 			</form>
