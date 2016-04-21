@@ -18,7 +18,6 @@ function timeConverter(UNIX_timestamp){
 }
 
 function wsOnUsers(data){
-    console.log(data);
 	var users = JSON.parse(data);
 	var tableHead = '<table class="table table-striped table-condensed table-bordered"><tbody>'
 	var tableTail = '</tbody></table>'
@@ -38,7 +37,6 @@ function wsOnUsers(data){
 };
 
 function deleteUser(userid){
-    console.log('del');
     var adminkey = $adminkey.val();
     sendMessage(JSON.stringify({type: "users", action: "deleteUser", adminkey: adminkey, user: userid}));
     return false;
