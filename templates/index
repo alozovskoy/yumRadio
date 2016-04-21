@@ -105,10 +105,10 @@ $.getScripts(jsList);
                 <div class="col-md-3">
                     
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <button type="button" class="btn btn-danger btn-block" onclick="sendOpinion('dislike');" title="Дислайкнуть">&darr;  <span id="dislikeCount">0</span></button>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <button type="button" class="btn btn-success btn-block" onclick="sendOpinion('like');" title="Лайкнуть">&uarr;  <span id="likeCount">0</span></button>
                 </div>
             </div>
