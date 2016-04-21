@@ -115,7 +115,7 @@ function StartVideo(){
         }
     };
 
-setInterval(nowPlay, 1000);
+setInterval(nowPlay, 200);
 setInterval(nowPlayTitle, 1000);
 setInterval(checkCurrentVideo, 1000);
 setInterval(checkCurrentTime, 1000);
