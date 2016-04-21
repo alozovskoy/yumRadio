@@ -24,7 +24,7 @@ def gettime():
     return str(currenttime)
 
 
-def threadWatcher():
+def videoTimeWatcher():
     global currenttime
     global radio
     while True:
@@ -51,7 +51,7 @@ def threadWatcher():
             radio['qstack'].pop()
 
 
-def likeWatcher():
+def videoLikeWatcher():
     global radio
     while True:
         opinions = radio['qstack'].getOpinions()
@@ -63,7 +63,7 @@ def likeWatcher():
                 radio['qstack'].pop()
         time.sleep(1)
 
-def userWatcher():
+def userActivityWatcher():
     global radio
     while True:
         users = radio['ustack'].getAll()

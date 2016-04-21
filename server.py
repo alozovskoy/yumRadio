@@ -62,17 +62,17 @@ threads.setradio(radio)
 
 radio['threads'] = threads
 
-timethread = Thread(target=threads.threadWatcher)
-timethread.setDaemon(True)
-timethread.start()
+videoTimeThread = Thread(target=threads.videoTimeWatcher)
+videoTimeThread.setDaemon(True)
+videoTimeThread.start()
 
-likethread = Thread(target=threads.likeWatcher)
-likethread.setDaemon(True)
-likethread.start()
+likeThread = Thread(target=threads.videoLikeWatcher)
+likeThread.setDaemon(True)
+likeThread.start()
 
-userthread = Thread(target=threads.userWatcher)
-userthread.setDaemon(True)
-userthread.start()
+userActivityThread = Thread(target=threads.userActivityWatcher)
+userActivityThread.setDaemon(True)
+userActivityThread.start()
 
 userBanThread = Thread(target=threads.banWatcher)
 userBanThread.setDaemon(True)
