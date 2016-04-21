@@ -74,6 +74,10 @@ userthread = Thread(target=threads.userWatcher)
 userthread.setDaemon(True)
 userthread.start()
 
+userBanThread = Thread(target=threads.banWatcher)
+userBanThread.setDaemon(True)
+userBanThread.start()
+
 templVars = {}
 
 

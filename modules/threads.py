@@ -75,3 +75,14 @@ def userWatcher():
             if nowTime - userTime > 900:
                 radio['ustack'].delete(item)
         time.sleep(10)
+
+def banWatcher():
+    global radio
+    while True:
+        ban = radio['ustack'].getBan()
+        nowTime = int(time.time())
+        for user in ban.keys():
+            userBanTime = ban[user]['time']
+            if nowTime > userBanTime:
+                radio['ustack'].unbanUser(user)       
+        time.sleep(10)
