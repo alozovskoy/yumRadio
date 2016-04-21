@@ -39,8 +39,8 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                         radio['ustack'].delete(data['user'])
                     if data['action'] == 'ban':
                         description = data['description'] if 'description' in data.keys() else None
-                        time = data['time'] if 'time' in data.keys() else None
-                        radio['ustack'].banUser(data['banid'], description = description, time = time)
+                        bantime = data['bantime'] if 'bantime' in data.keys() else None
+                        radio['ustack'].banUser(data['banid'], description = description, bantime = bantime)
                     if data['action'] == 'unban':
                         radio['ustack'].unbanUser(data['unbanid'])
                     if data['action'] == 'getBan':

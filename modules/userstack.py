@@ -14,10 +14,12 @@ class Stack(object):
         self.usersInRoom = []
         self.ban = {}
         
-    def banUser(self, userid, description = None, time = int(time.time() + 600)):
+    def banUser(self, userid, description = None, bantime = None):
+        if bantime is None:
+            bantime = int(time.time() + 600)
         self.ban[userid] = {
             'description':  description,
-            'time':         time}
+            'time':         bantime}
         self.delete(userid)
         return None
     
