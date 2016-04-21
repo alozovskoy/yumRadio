@@ -43,11 +43,11 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                         radio['ustack'].banUser(data['banid'], description = description, time = time)
                     if data['action'] == 'unban':
                         radio['ustack'].unbanUser(data['unbanid'])
-                    if data['action'] == 'getban':
+                    if data['action'] == 'getBan':
                         self.send_one({
                             'type':     'users',
-                            'action':   'getban',
-                            'ban':      radio['ustack'].getBan()})
+                            'action':   'getBan',
+                            'ban':      json.dumps(radio['ustack'].getBan())})
         if data['action'] == 'countInRoom':
             self.send_one({
                 'type':         'users',

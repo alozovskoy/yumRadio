@@ -21,11 +21,14 @@ class Stack(object):
         self.delete(userid)
         return None
     
-    def getBan(self, userid):
+    def getBanUser(self, userid):
         if userid in self.ban.keys():
             return self.ban[userid]
         else:
             return None
+            
+    def getBan(self):
+        return self.ban
             
     def unbanUser(self, userid):
         self.ban.pop(userid, None)

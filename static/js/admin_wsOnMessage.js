@@ -45,11 +45,16 @@ ws.onmessage = function (evt) {
             break
                         
         case 'users':
+            console.log('USEERS: ' + data['action']);
             switch (action){
                 
                 case 'getUsers':
                     wsOnUsers(data['users']);
-                    break                
+                    break  
+                    
+                case 'getBan':
+                    wsOnBan(data['ban']);
+                    break
             }
             break 
                       

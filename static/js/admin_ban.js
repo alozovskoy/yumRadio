@@ -6,14 +6,17 @@ function getBan(){
 
 function wsOnBan(data){
 	var ban = JSON.parse(data);
-	var tableHead = '<table class="table table-striped table-condensed table-bordered"><tbody>'
+	var tableHead = '<table class="table table-striped table-condensed table-bordered"><thead><tr><th></th><th>Причина</th><th>Время</th></tr></thead><tbody>'
 	var tableTail = '</tbody></table>'
     var tableData = ''
-
-	if ( Object.keys(ban).length > 0 ){
-		for (var key = 0; key < Object.keys(users).length ; key++) {
-			var item = JSON.parse(ban[key]);
-			tableData += '<tr><td>' + item + '</td><td>' + ban[item]['description'] +'</td><td>' + ban[item]['time'] +'</td></tr>'
+    
+    keys = Object.keys(ban);
+    console.log(keys);
+    
+	if ( keys.length > 0 ){
+		for (var key = 0; key < keys.length ; key++) {
+			var item = keys[key]
+			tableData += '<tr><td><button class="btn btn-block btn-danger" onclick="unbanUser(\'' + item + '\');">Разбанить</button></td><td>' + ban[item]['description'] +'</td><td>' + ban[item]['time'] +'</td></tr>'
 		}
 	}
 	else {
