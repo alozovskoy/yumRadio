@@ -118,8 +118,12 @@ class URIHandler(tornado.web.RequestHandler):
                                     self.set_cookie('userid', userid)
                                     self.set_cookie('sessionid', sessionid)
                                     self.redirect('/')
+                                    return
                                 else:
                                     self.redirect('/ban')
+                                    return
+                            else:
+                                self.redirect('/login')
                                 return
                     elif self.request.uri == '/ban':
                         self.set_status(200)
