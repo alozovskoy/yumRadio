@@ -103,7 +103,16 @@ $.getScripts(jsList);
                     <button type="button" id="muteButton" class="btn btn-primary btn-block" onclick="muteToggle();">Mute</button>
                 </div>
                 <div class="col-md-3">
-                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <button class="btn btn-danger btn-block">-</button>
+                        </div>
+                        <div class="col-md-4">
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-success btn-block">+</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-3">
                     <button type="button" class="btn btn-danger btn-block" onclick="sendOpinion('dislike');" title="Дислайкнуть">&darr;  <span id="dislikeCount">0</span></button>
