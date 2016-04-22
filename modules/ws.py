@@ -187,9 +187,13 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
             return None
 
     def open(self):
+        global radio
+        radio['wsClients'].append(self)
         WebSocketHandler.connections.add(self)
 
     def on_close(self):
+        global radio
+        radio['wsClients'].remove(self)
         WebSocketHandler.connections.remove(self)
 
     def on_message(self, msg):
