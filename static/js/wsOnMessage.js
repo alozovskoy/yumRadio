@@ -10,7 +10,7 @@ ws.onmessage = function (evt) {
 			switch (action){
 				
 				case 'getMsg':
-					chatGetMessage(data['name'], data['msg'])
+					chatGetMessage(data['name'], data['sender'], data['msg'])
 					break
 				
 				default:
