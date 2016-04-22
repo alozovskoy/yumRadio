@@ -28,9 +28,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         global radio
         if data['action'] in ['getUsers', 'deleteUser', 'ban', 'unban', 'getBan']:
             if 'adminkey' in data.keys():
-                with open(serverDir + '/adminkey', 'r') as f:
-                    adminkey = f.readline().split()[0]
-                if data['adminkey'] == adminkey:
+                if radio['ustack'].isAdmin(data['adminkey']):
                     if data['action'] == 'getUsers':
                         self.send_one({
                             'type':     'users',
@@ -97,16 +95,12 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
         if data['action'] == 'videoDelete':
             if 'adminkey' in data.keys():
-                with open(serverDir + '/adminkey', 'r') as f:
-                    adminkey = f.readline().split()[0]
-                if data['adminkey'] == adminkey:
+                if radio['ustack'].isAdmin(data['adminkey']):
                     radio['qstack'].delete(data['videoid'])
 
         if data['action'] == 'videoPlayNext':
             if 'adminkey' in data.keys():
-                with open(serverDir + '/adminkey', 'r') as f:
-                    adminkey = f.readline().split()[0]
-                if data['adminkey'] == adminkey:
+                if radio['ustack'].isAdmin(data['adminkey']):
                     if radio['qstack'].size() > 0:
                         radio['qstack'].pop()
 
@@ -120,9 +114,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         if data['action'] == 'videoGetQueue':
             admin = False
             if 'adminkey' in data.keys():
-                with open(serverDir + '/adminkey', 'r') as f:
-                    adminkey = f.readline().split()[0]
-                if data['adminkey'] == adminkey:
+                if radio['ustack'].isAdmin(data['adminkey']):
                     admin = True
             self.send_one({
                 'type': 'video',
