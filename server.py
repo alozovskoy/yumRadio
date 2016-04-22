@@ -37,6 +37,7 @@ logging.basicConfig(level=logging.DEBUG,
 
 
 auth.radio = radio
+userstack.radio = radio
 
 auth.callbackURL = 'https://%s/login' % listenName
 

@@ -14,6 +14,12 @@ class Stack(object):
         self.usersInRoom = []
         self.ban = {}
         
+    def isAdmin(self, userid):
+        for item in radio['config'].get('admin', 'userid').split():
+            if userid == item:
+                return True
+        return False
+
     def banUser(self, userid, description = None, bantime = None):
         if bantime is None:
             bantime = int(time.time() + 600)
