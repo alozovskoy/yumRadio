@@ -60,7 +60,7 @@ radio['currentvideo'] = radio['qstack'].first()
 
 def sendMsg(msg):
     for client in radio['wsClients']:
-        client.write_message(json.dumps(msg))
+        client.write_message(msg)
     return None
 
 radio['wsClients'] = []
