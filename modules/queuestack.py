@@ -86,6 +86,12 @@ class Stack(object):
         if item in self.itemsList:
             self.itemsList.remove(item)
         if item in self.items.keys():
+            sendMsg({
+                'type' : 'chat',
+                'action':'getMsg',
+                'sender':'system',
+                'name':'system',
+                'msg': 'Трек %s удален из очереди' % str(self.getName(item))})
             self.items.pop(item, None)
         return None
 
