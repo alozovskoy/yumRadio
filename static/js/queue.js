@@ -24,6 +24,7 @@ function wsOnQueue(data){
 	}
 	
 	$('#queue').html(tableHead + tableData + tableTail);
+    $('#queueCount').text(Object.keys(queue).length);
 };
 
 videoGetQueue();

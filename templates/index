@@ -155,7 +155,7 @@ $.getScripts(jsList);
                             data-toggle="dropdown" 
                             aria-haspopup="true" 
                             aria-expanded="true">
-                            Очередь
+                            Очередь (<span id="queueCount">0</span>)
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu pull-center" id="queue" aria-labelledby="queue" style="width: 100%;"></ul>
