@@ -14,3 +14,9 @@ class config:
 
     def get(self, section, key):
         return self.cfgParser.get(section, key)
+        
+    def getBool(self, section, key)
+        if self.cfgParser.get(section, key).lower() in ['true', 'yes', 'y']:
+            return True
+        else:
+            return False
