@@ -4,6 +4,7 @@
 import isodate
 import json
 import uuid
+import hashlib
 
 import time
 
@@ -84,7 +85,7 @@ class Stack(object):
         if item not in self.items.keys():
             self.items[str(item)] = {}
             self.items[str(item)]['names'] = []
-            self.items[str(item)]['cookie'] = str(uuid.uuid1())
+            self.items[str(item)]['cookie'] = hashlib.sha512(str(uuid.uuid1())).hexdigest()
             return self.items[str(item)]['cookie']
         else:
             return self.items[str(item)]['cookie']
