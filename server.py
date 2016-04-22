@@ -108,6 +108,8 @@ class URIHandler(tornado.web.RequestHandler):
             if page == '/favicon.ico':
                 page = '/static/img/favicon.ico'
                 contentType = 'image/x-icon'
+            if page.startswith('/static/css'):
+                contentType = 'text/css'
             if page.startswith('/static'):
                 with open(serverDir + page,'r') as staticfile:
                     if contentType:
