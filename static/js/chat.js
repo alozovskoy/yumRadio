@@ -14,11 +14,16 @@ function intToRGB(i){
     return "00000".substring(0, 6 - c.length) + c;
 }
 
-function chatGetMessage(name, msg){
+function chatGetMessage(name, sender, msg){
 	var username = safe_tags_replace(name);
-	var usernamecolor = intToRGB(hashCode(username));
-	var text = '<span style="color: #' + usernamecolor + ';">' + username + '</span>: ' + safe_tags_replace(msg);
-	
+
+    if (sender == 'system'){
+        var text = '<span style="color: #fea610;"> &#10047; ' + username + '</span>: ' + safe_tags_replace(msg);
+    } else {
+        var usernamecolor = intToRGB(hashCode(username));
+        var text = '<span style="color: #' + usernamecolor + ';">' + username + '</span>: ' + safe_tags_replace(msg);
+    }
+
 	$('#chatframe').append('<p>' + text + '</p>');
 
 	document.getElementById("chatframe").scrollTop = document.getElementById("chatframe").scrollHeight;
