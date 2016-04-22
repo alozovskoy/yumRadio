@@ -26,20 +26,16 @@ radio = {}
 
 radio['config'] = config.config(serverDir + '/radio.conf')
 
-listenPort = radio['config'].get('server', 'port')
-listenName = radio['config'].get('server', 'name')
-
-
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(levelname)-8s - %(message)s',
                     datefmt='%d/%m/%Y %Hh%Mm%Ss',
-                    filename='/tmp/radio.log')
+                    filename=radio['config'].get('server', 'log'))
 
 
 auth.radio = radio
 userstack.radio = radio
 
-auth.callbackURL = 'https://%s/login' % listenName
+auth.callbackURL = 'https://%s/login' % radio['config'].get('server', 'name')
 
 
 youtube.radio = radio
@@ -190,19 +186,27 @@ ws.logging = logging
 ws.threads = threads
 ws.serverDir = serverDir
 
+
 application = tornado.web.Application([
     (r'/ws', ws.WebSocketHandler),
     (r'.*', URIHandler),
 ],
-    debug=True,
-    cookie_secret="nieg+eiy8Aeki,a7faeferuh"
+    debug=radio['config'].getBool('server', 'debug'),
 )
 
-ssl_options = {"certfile": serverDir + '/ssl/ssl.crt',
-               "keyfile": serverDir + '/ssl/ssl.key'}
-
 if __name__ == "__main__":
-    http_server = tornado.httpserver.HTTPServer(
-        application, ssl_options=ssl_options)
-    http_server.listen(listenPort)
+    
+    if radio['config'].getBool('ssl', 'enable'):
+        ssl_options = {
+                    "certfile": radio['config'].get('ssl', 'cert'),
+                    "keyfile":  radio['config'].get('ssl', 'key')}
+        http_server = tornado.httpserver.HTTPServer(
+            application, ssl_options=ssl_options)
+    else:
+        http_server = tornado.httpserver.HTTPServer(application)
+        
+    if radio['config'].get('server', 'listen'):
+        http_server.listen(radio['config'].get('server', 'port'), address=radio['config'].get('server', 'listen'))
+    else:
+        http_server.listen(radio['config'].get('server', 'port'))
     tornado.ioloop.IOLoop.instance().start()
