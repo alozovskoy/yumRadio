@@ -13,10 +13,17 @@ class config:
         self.cfgParser.read(self.filename)
 
     def get(self, section, key):
-        return self.cfgParser.get(section, key)
+        try:
+            return self.cfgParser.get(section, key)
+        except:
+            return None
         
-    def getBool(self, section, key)
-        if self.cfgParser.get(section, key).lower() in ['true', 'yes', 'y']:
+    def getBool(self, section, key):
+        try:
+            item = self.cfgParser.get(section, key)
+        except:
+            return None
+        if item.lower() in ['true', 'yes', 'y']:
             return True
         else:
             return False
