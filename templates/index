@@ -99,18 +99,18 @@ $.getScripts(jsList);
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div class="col-md-3">
-                    <button type="button" id="muteButton" class="btn btn-primary btn-block" onclick="muteToggle();">Mute</button>
-                </div>
-                <div class="col-md-3">
+                <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-4">
-                            <button class="btn btn-danger btn-block">-</button>
+                            <button type="button" id="volumeDown" class="btn btn-danger btn-block" onclick="volumeDown();">-</button>
                         </div>
                         <div class="col-md-4">
+                            <button type="button" id="muteButton" class="btn btn-primary btn-block" onclick="muteToggle();">
+                                <span id="volume">100</span>
+                            </button>
                         </div>
                         <div class="col-md-4">
-                            <button class="btn btn-success btn-block">+</button>
+                            <button type="button" id="volumeUp" class="btn btn-success btn-block" onclick="volumeUp();">+</button>
                         </div>
                     </div>
                 </div>

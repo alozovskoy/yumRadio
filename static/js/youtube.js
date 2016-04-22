@@ -136,12 +136,48 @@ function checkVideoPlaceholder(){
 checkVideoPlaceholder();
 setInterval(checkVideoPlaceholder, 500);
 
+var volumeCount = 100;
+var mute = false;
+
 function muteToggle(){
     if (player.isMuted()){
         player.unMute();
-        $('#muteButton').text('Mute');
+        mute = false;
+        setVolume();
     } else {
         player.mute();
-        $('#muteButton').text('unMute');
+        mute = true;
+        setVolume();
     }
 }
+
+function volumeUp(){
+    if (volumeCount < 100){
+        volumeCount += 10;
+        setVolume();
+    }
+}
+
+function volumeDown(){
+    if (volumeCount > 0){
+        volumeCount -= 10;
+        setVolume();
+    }
+}
+
+function setVolume(){
+    if (player){
+        player.setVolume(volumeCount);
+    }
+    if (mute){
+        $('#muteButton').removeClass('btn-primary');
+        $('#muteButton').addClass('btn-default');
+    } else {
+        $('#muteButton').removeClass('btn-default');
+        $('#muteButton').addClass('btn-primary');
+    }
+    document.getElementById("volume").innerHTML = volumeCount;
+
+}
+
+setVolume();
