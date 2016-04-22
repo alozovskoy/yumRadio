@@ -91,7 +91,7 @@ class Stack(object):
                     msg = 'Трек %s удален из очереди' % str(self.getName(item).encode('utf-8'))
                 else:
                     opinion = self.getOpinions()
-                    msg = 'Трек %s отыграл, лайков: %s, дизлайков = %s' % (str(self.getName(item).encode('utf-8')), str(len(opinion['like'])), str(len(opinion['dislike'])))
+                    msg = 'Трек %s отыграл, лайков: %s, дизлайков: %s' % (str(self.getName(item).encode('utf-8')), str(len(opinion['like'])), str(len(opinion['dislike'])))
             sendMsg({
                 'type' : 'chat',
                 'action':'getMsg',
