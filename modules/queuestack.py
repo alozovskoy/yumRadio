@@ -82,16 +82,22 @@ class Stack(object):
             return None
 
 
-    def delete(self, item):
+    def delete(self, item, delete = True, msg = None):
         if item in self.itemsList:
             self.itemsList.remove(item)
         if item in self.items.keys():
+            if msg is None:
+                if delete:
+                    msg = 'Трек %s удален из очереди' % str(self.getName(item))
+                else:
+                    opinion = self.getOpinions()
+                    msg = 'Трек %s отыграл, лайков: %s, дизлайков = %s' % (str(self.getName(item)), str(len(opinion['like'])), str(len(opinion['dislike'])))
             sendMsg({
                 'type' : 'chat',
                 'action':'getMsg',
                 'sender':'system',
                 'name':'system',
-                'msg': 'Трек %s удален из очереди' % str(self.getName(item))})
+                'msg': msg})
             self.items.pop(item, None)
         return None
 
@@ -126,7 +132,7 @@ class Stack(object):
     def pop(self):
         global currenttime
         if not self.isEmptyMain():
-            self.delete(self.current)
+            self.delete(self.current, False)
         if not self.isEmpty():
             self.current = self.itemsList.pop(0)
         else:
