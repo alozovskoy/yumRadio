@@ -48,15 +48,6 @@ queuestack.logging = logging
 
 radio = {}
 
-radio['qstack'] = queuestack.Stack()
-radio['qstack'].youtube = youtube
-
-
-radio['ustack'] = userstack.Stack()
-
-radio['currenttime'] = 0
-radio['currentvideo'] = radio['qstack'].first()
-
 
 def sendMsg(msg):
     for client in radio['wsClients']:
@@ -65,6 +56,16 @@ def sendMsg(msg):
 
 radio['wsClients'] = []
 radio['sendMsg'] = sendMsg
+
+queuestack.sendMsg = sendMsg
+
+radio['qstack'] = queuestack.Stack()
+radio['qstack'].youtube = youtube
+
+radio['ustack'] = userstack.Stack()
+
+radio['currenttime'] = 0
+radio['currentvideo'] = radio['qstack'].first()
 
 threads.setradio(radio)
 
