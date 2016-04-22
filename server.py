@@ -37,7 +37,6 @@ userstack.radio = radio
 
 auth.callbackURL = '%s://%s/login' % (radio['config'].get('server', 'protocol'), radio['config'].get('server', 'name'))
 
-
 youtube.radio = radio
 
 
