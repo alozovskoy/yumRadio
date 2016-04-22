@@ -106,7 +106,7 @@ class URIHandler(tornado.web.RequestHandler):
             logging.error('ERROR: %s (%s)' % (e, Exception))
             page = '/' + self.request.uri
         if page == '/':
-            page = 'index'
+            page = '/index.html'
 
         if page.startswith(('/login', '/static', '/favicon.ico', '/ban', '/404')):
             contentType = ''
@@ -120,11 +120,11 @@ class URIHandler(tornado.web.RequestHandler):
                     self.write(staticfile.read())
             else:
                 try:
-                    if page == '/login':
-                        if self.request.uri == '/login':
+                    if page in ['/login', '/login.html']:
+                        if self.request.uri in ['/login', '/login.html']:
                             templVars['target'] = auth.getUserConfirm()
                             self.set_status(200)
-                            self.render(serverDir + '/templates/login', **templVars)
+                            self.render(serverDir + '/templates/login.html', **templVars)
                             return
                         else:
                             resource = auth.getResource(self.request.uri)
@@ -142,9 +142,9 @@ class URIHandler(tornado.web.RequestHandler):
                             else:
                                 self.redirect('/login')
                                 return
-                    elif self.request.uri == '/ban':
+                    elif self.request.uri in ['/ban', '/ban.html']:
                         self.set_status(200)
-                        self.render(serverDir + '/templates/ban', **templVars)
+                        self.render(serverDir + '/templates/ban.html', **templVars)
                         return
                     else:
                         self.redirect('/login')
@@ -153,7 +153,7 @@ class URIHandler(tornado.web.RequestHandler):
                     logging.error('MainERROR: %s (%s)' % (e, Exception))
                     raise
                     self.set_status(404)
-                    self.render(serverDir + '/templates/404', **templVars)
+                    self.render(serverDir + '/templates/404.html', **templVars)
         else:
 
             userid = self.get_cookie('userid')
@@ -175,12 +175,14 @@ class URIHandler(tornado.web.RequestHandler):
                     pageVars['start'] = currenttime
                     pageVars['video'] = currentvideo
                     self.set_status(200)
+                    if not page.endswith('html'):
+                        page = page + '.html'
                     self.render(serverDir + '/templates/' + page, **pageVars)
                 except Exception, e:
                     logging.error('MainERROR: %s (%s)' % (e, Exception))
                     raise
                     self.set_status(404)
-                    self.render(serverDir + '/templates/404', **templVars)
+                    self.render(serverDir + '/templates/404.html', **templVars)
         self.set_header('Connection', 'close')
         
 ws.radio = radio
