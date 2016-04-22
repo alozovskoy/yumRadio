@@ -17,10 +17,11 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 msg = data['msg'].strip()[0:128]
                 radio['ustack'].appendName(data['userid'], user)
                 self.send_all({
-                    'type': 'chat',
-                    'action': 'getMsg',
-                    'name': user,
-                    'msg': msg})
+                    'type':     'chat',
+                    'action':   'getMsg',
+                    'sender':   'user',
+                    'name':     user,
+                    'msg':      msg})
         return None
         
     def users(self, data):
