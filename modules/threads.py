@@ -86,3 +86,9 @@ def banWatcher():
             if nowTime > userBanTime:
                 radio['ustack'].unbanUser(user)       
         time.sleep(10)
+
+def configWatcher():
+    global radio
+    while True:
+        radio['config'].load()
+        time.sleep(60)
