@@ -63,7 +63,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
         global radio
         youtubeID = re.compile("^[A-Z0-9a-z_-]{11}$")
         if data['action'] == 'videoAdd':
-            if radio['qstack'].size() < 30:
+            if radio['qstack'].size() < int(radio['config'].get('queue', 'count')):
                 if youtubeID.match(data['id']):
                     if radio['qstack'].getCurrent() == data['id']:
                         status = 'warn'
