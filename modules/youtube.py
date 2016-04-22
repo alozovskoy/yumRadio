@@ -7,10 +7,8 @@ import urllib2
 
 def getTitle(videoid):
     title = None
-    with open(serverDir + '/apikey', 'r') as f:
-        apikey = f.readline().split()[0]
     url = 'https://www.googleapis.com/youtube/v3/videos?\
-part=snippet&id=%s&fields=items%%2Fsnippet(title)&key=%s' % (videoid, apikey)
+part=snippet&id=%s&fields=items%%2Fsnippet(title)&key=%s' % (videoid, radio['config'].get('youtube', 'apikey'))
     data = urllib2.urlopen(url)
     if data.code == 200:
         answer = json.loads(data.read())
@@ -20,11 +18,9 @@ part=snippet&id=%s&fields=items%%2Fsnippet(title)&key=%s' % (videoid, apikey)
 
 def getThumbnail(videoid):
     thumbnail = None
-    with open(serverDir + '/apikey', 'r') as f:
-        apikey = f.readline().split()[0]
     url = 'https://www.googleapis.com/youtube/v3/videos?\
 part=snippet&id=%s&\
-fields=items%%2Fsnippet(thumbnails)&key=%s' % (videoid, apikey)
+fields=items%%2Fsnippet(thumbnails)&key=%s' % (videoid, radio['config'].get('youtube', 'apikey'))
     data = urllib2.urlopen(url)
     if data.code == 200:
         answer = json.loads(data.read())
@@ -35,11 +31,9 @@ fields=items%%2Fsnippet(thumbnails)&key=%s' % (videoid, apikey)
 
 def getDuration(videoid):
     duration = None
-    with open(serverDir + '/apikey', 'r') as f:
-        apikey = f.readline().split()[0]
     url = 'https://www.googleapis.com/youtube/v3/videos?\
 part=contentDetails&id=%s&fields=items%%2FcontentDetails(duration)\
-&key=%s' % (videoid, apikey)
+&key=%s' % (videoid, radio['config'].get('youtube', 'apikey'))
     data = urllib2.urlopen(url)
     if data.code == 200:
         answer = json.loads(data.read())

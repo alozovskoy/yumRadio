@@ -44,7 +44,7 @@ with open(serverDir + '/clientsecret', 'r') as f:
 auth.callbackURL = 'https://%s/login' % listenName
 
 
-youtube.serverDir = serverDir
+youtube.radio = radio
 
 
 queuestack.youtube = youtube
