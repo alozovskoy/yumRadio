@@ -36,10 +36,7 @@ logging.basicConfig(level=logging.DEBUG,
                     filename='/tmp/radio.log')
 
 
-with open(serverDir + '/clientkey', 'r') as f:
-    auth.clientKey = f.readline().split()[0]
-with open(serverDir + '/clientsecret', 'r') as f:
-    auth.clientSecret = f.readline().split()[0]
+auth.radio = radio
 
 auth.callbackURL = 'https://%s/login' % listenName
 

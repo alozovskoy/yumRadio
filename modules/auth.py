@@ -17,7 +17,7 @@ state = str(random.getrandbits(64))
 
 def getUserConfirm():
     auth_params = {
-        "client_id": clientKey,
+        "client_id": radio['config'].get('google', 'key'),
         "state": state,
         "redirect_uri": callbackURL,
         "scope": "openid",
@@ -29,7 +29,7 @@ def getUserConfirm():
 
 def getResource(data):
     auth_params = {
-        "client_id": clientKey,
+        "client_id": radio['config'].get('google', 'key'),
         "state": state,
         "redirect_uri": callbackURL,
         "scope": "openid",
@@ -39,9 +39,9 @@ def getResource(data):
     if redirect_params['state'] == auth_params['state']:
         authCode = redirect_params['code']
         access_token_params = {
-            'client_id':        clientKey,
+            'client_id':        radio['config'].get('google', 'key'),
             'redirect_uri':     callbackURL,
-            'client_secret':    clientSecret,
+            'client_secret':    radio['config'].get('google', 'secret'),
             'code':             authCode,
             'grant_type':       'authorization_code'
         }
