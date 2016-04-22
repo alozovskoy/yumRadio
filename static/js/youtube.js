@@ -45,15 +45,9 @@ function StartVideo(){
 
     function nowPlayTitle(){
         currentVideoTitle = player.getVideoData().title;
-        if (currentVideoTitle){
-            $('#currentVideoTitle').text(currentVideoTitle);
-            $('#currentVideoDescription').text('Сейчас играет: ');
-        } else {
-            $('#currentVideoDescription').text('');
-            $('#currentVideoTitle').text('');
-        }
         return false;
     };
+
     
     function checkCurrentTime(){
         if ( currentVideoOnClient != currentVideoOnServer ){
@@ -121,6 +115,53 @@ setInterval(checkCurrentVideo, 1000);
 setInterval(checkCurrentTime, 1000);
 setInterval(getPlayerHeight, 1000);
 }
+
+function scrollTitle(){
+    
+    var start = 0;
+    var stop = 40;
+    var max = 40;
+    var direction = 'inc';
+
+    function scroll(){
+        
+        if (currentVideoTitle.length > max){
+            
+            $('#currentVideoDescription').text('Сейчас играет: ');
+            $('#currentVideoTitle').text(currentVideoTitle.substring(start, stop));
+            
+            if (direction == 'inc'){
+                start++;
+                stop++;
+            } else {
+                start--;
+                stop--;
+            }
+            
+        } else if (currentVideoTitle.length == 0) {
+            $('#currentVideoDescription').text('');
+            $('#currentVideoTitle').text('');
+            
+        } else {
+            
+            $('#currentVideoTitle').text(currentVideoTitle);
+            
+        };
+    
+        if (stop == currentVideoTitle.length){
+            direction = "dec"
+        };
+        
+        if (start == 0){
+            direction = "inc"
+        };
+
+    };
+    
+    setInterval(scroll, 500);
+}
+
+scrollTitle();
 
 function checkVideoPlaceholder(){
     if ( currentVideoOnClient ){
