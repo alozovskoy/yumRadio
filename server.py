@@ -21,8 +21,13 @@ from tornado.process import Subprocess
 from modules import *
 
 serverDir = str(os.path.abspath(os.path.dirname(sys.argv[0])))
-listenPort = 443
-listenName = 'localhost'
+
+radio = {}
+
+radio['config'] = config.config(serverDir + '/radio.conf')
+
+listenPort = radio['config'].get('server', 'port')
+listenName = radio['config'].get('server', 'name')
 
 
 logging.basicConfig(level=logging.DEBUG,
@@ -45,9 +50,6 @@ youtube.serverDir = serverDir
 queuestack.youtube = youtube
 queuestack.serverDir = serverDir
 queuestack.logging = logging
-
-radio = {}
-
 
 def sendMsg(msg):
     for client in radio['wsClients']:
@@ -86,6 +88,10 @@ userActivityThread.start()
 userBanThread = Thread(target=threads.banWatcher)
 userBanThread.setDaemon(True)
 userBanThread.start()
+
+configThread = Thread(target=threads.configWatcher)
+configThread.setDaemon(True)
+configThread.start()
 
 templVars = {}
 
