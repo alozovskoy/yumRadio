@@ -61,7 +61,4 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
-adminkey
-apikey
-clientsecret
-clientkey
+radio.conf
