@@ -58,6 +58,14 @@ radio['currenttime'] = 0
 radio['currentvideo'] = radio['qstack'].first()
 
 
+def sendMsg(msg):
+    for client in radio['wsClients']:
+        client.write_message(json.dumps(msg))
+    return None
+
+radio['wsClients'] = []
+radio['sendMsg'] = sendMsg
+
 threads.setradio(radio)
 
 radio['threads'] = threads
