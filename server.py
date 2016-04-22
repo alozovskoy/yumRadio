@@ -35,7 +35,8 @@ logging.basicConfig(level=logging.DEBUG,
 auth.radio = radio
 userstack.radio = radio
 
-auth.callbackURL = 'https://%s/login' % radio['config'].get('server', 'name')
+httpProtocol = 'https' if radio['config'].getBool('ssl', 'enable') else 'http'
+auth.callbackURL = '%s://%s/login' % (httpProtocol, radio['config'].get('server', 'name'))
 
 
 youtube.radio = radio
