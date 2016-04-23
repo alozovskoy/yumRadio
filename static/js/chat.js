@@ -16,12 +16,19 @@ function intToRGB(i){
 
 function chatGetMessage(name, sender, msg){
 	var username = safe_tags_replace(name);
-
+    var message = safe_tags_replace(msg)
+    
+    if (message.startsWith('http') && (message.endsWith('.png') || message.endsWith('.jpg') || message.endsWith('.gif'))){
+        console.log('TRUE');
+        message = '<a href="' + message + '"><img src="' + message + '" height="50px"></a>'
+        console.log(message);
+    }
+    
     if (sender == 'system'){
-        var text = '<span style="color: #fea610;"> &#10047; ' + username + '</span>: ' + safe_tags_replace(msg);
+        var text = '<span style="color: #fea610;"> &#10047; ' + username + '</span>: ' + message;
     } else {
         var usernamecolor = intToRGB(hashCode(username));
-        var text = '<span style="color: #' + usernamecolor + ';">' + username + '</span>: ' + safe_tags_replace(msg);
+        var text = '<span style="color: #' + usernamecolor + ';">' + username + '</span>: ' + message;
     }
 
 	$('#chatframe').append('<p>' + text + '</p>');
