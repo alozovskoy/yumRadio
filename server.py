@@ -171,6 +171,9 @@ class URIHandler(tornado.web.RequestHandler):
             elif radio['ustack'].isBan(userid):
                 self.redirect('/ban')
                 return
+            elif page in ['/admin', '/admin.html'] and not radio['ustack'].isAdmin(self.get_cookie('userid')):
+                self.redirect('/')
+                return
             else:
                 pageVars = {}
                 pageVars['page'] = page
