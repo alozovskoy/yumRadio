@@ -9,5 +9,5 @@ function replaceTag(tag) {
 }
 
 function safe_tags_replace(str) {
-    return str.replace(/[&<>]/g, replaceTag);
+    return str.replace(/[&<>]/g, replaceTag).replace(/[^А-Яа-яA-Za-z 0-9 \.,\?""!@#\$%\^&\*\(\)-_=\+;:<>\/\\\|\}\{\[\]`~]*/g, '');
 }
