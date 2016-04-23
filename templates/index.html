@@ -40,6 +40,10 @@ $.getScripts(jsList);
 {% end %}
 {% block header %}
                         <form class="navbar-form" role="search">
+                            <div class="form-group" id="systemMessageButton" style="display: none">
+                                <button class="btn btn-default" id='systemMessageButtonDisabled' type="button" onclick="switchAdminMessage();">System</button>
+                                <button class="btn btn-success" id='systemMessageButtonEnabled' type="button" onclick="switchAdminMessage();" style="display: none">System</button>
+                            </div>
                             <div class="form-group">
                                 <input 
                                     type="text" 

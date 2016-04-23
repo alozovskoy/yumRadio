@@ -11,15 +11,29 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
 
     def chat(self, data):
         global radio
+        
+        sender = 'user'
+        
         if data['action'] == 'sendMsg':
-            if 'msg' in data.keys() and data['msg'] and 'user' in data.keys():
-                user = data['user'].strip()[0:15] if data['user'] else 'anonimous'
-                msg = data['msg'].strip()[0:128]
+            if 'msg' in data.keys() and data['msg']:
+                if 'sender' in data.keys() and data['sender']:
+                    if data['sender'] == 'system':
+                        if radio['ustack'].isAdmin(data['userid']):
+                            sender = 'system'
+                if 'user' in data.keys():
+                    if sender == 'system':
+                        user = data['user'] if data['user'] else 'system'
+                    else:
+                        user = data['user'].strip()[0:15] if data['user'] else 'anonimous'
+                if sender == 'system':
+                    msg = data['msg']
+                else:
+                    msg = data['msg'].strip()[0:128]
                 radio['ustack'].appendName(data['userid'], user)
                 self.send_all({
                     'type':     'chat',
                     'action':   'getMsg',
-                    'sender':   'user',
+                    'sender':   sender,
                     'name':     user,
                     'msg':      msg})
         return None
@@ -177,6 +191,14 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 {'type': 'session', 'msg': 'Все клиенты отключены'})
             return None
 
+    def auth(self, data):
+        global radio
+        if data['action'] == 'isAdmin':
+            self.send_one({'type': 'auth', 
+                'action': 'isAdmin', 
+                'admin' : str(radio['ustack'].isAdmin(data['userid']))})
+        return None
+
     def open(self):
         global radio
         radio['wsClients'].append(self)
@@ -199,6 +221,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 'opinion':  self.opinion,
                 'session':  self.session,
                 'users':    self.users,
+                'auth':     self.auth,
             }
             logging.debug('wsData: %s' % data)
             if data['type'] and data['type'] in actions.keys():

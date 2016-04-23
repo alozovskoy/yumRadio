@@ -73,8 +73,15 @@ ws.onmessage = function (evt) {
             break
             
         case 'auth':
-            if (data['action'] == 'reauth'){
-                location.reload();
+            switch (action){
+                
+                case 'reauth':
+                    location.reload();
+                    break
+                    
+                case 'isAdmin':
+                    isAdmin(data['admin']);
+                    break
             }
             break
         

@@ -2,7 +2,6 @@ var divs = [
     'queueRow',
     'usersRow',
     'banRow',
-    'sendRow'
 ];
 
 var activeButton = 'queueButton'
