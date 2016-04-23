@@ -19,9 +19,7 @@ function chatGetMessage(name, sender, msg){
     var message = safe_tags_replace(msg)
     
     if (message.startsWith('http') && (message.endsWith('.png') || message.endsWith('.jpg') || message.endsWith('.gif'))){
-        console.log('TRUE');
         message = '<a href="' + message + '"><img src="' + message + '" height="50px"></a>'
-        console.log(message);
     }
     
     if (sender == 'system'){
