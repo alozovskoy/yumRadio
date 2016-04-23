@@ -31,7 +31,6 @@ function wsOnQueue(data){
 };
 
 videoGetQueue();
-setInterval(videoGetQueue, 1000);
 
 function videoNext(){
 	sendMessage(JSON.stringify({type: "video", action: "videoPlayNext"}));	
