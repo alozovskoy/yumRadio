@@ -1,5 +1,3 @@
-$adminkey = $("input[name='adminkey']");
-
 var divs = [
     'queueRow',
     'usersRow',

@@ -1,6 +1,5 @@
 function getUsers(){
-    var adminkey = $adminkey.val();
-    sendMessage(JSON.stringify({type: "users", action: "getUsers", adminkey: adminkey}));
+    sendMessage(JSON.stringify({type: "users", action: "getUsers"}));
     return false;
 };
 
@@ -24,8 +23,7 @@ function wsOnUsers(data){
 };
 
 function deleteUser(userid){
-    var adminkey = $adminkey.val();
-    sendMessage(JSON.stringify({type: "users", action: "deleteUser", adminkey: adminkey, user: userid}));
+    sendMessage(JSON.stringify({type: "users", action: "deleteUser", user: userid}));
     return false;
 }
 

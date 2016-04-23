@@ -1,6 +1,5 @@
 function getBan(){
-    var adminkey = $adminkey.val();
-    sendMessage(JSON.stringify({type: "users", action: "getBan", adminkey: adminkey}));
+    sendMessage(JSON.stringify({type: "users", action: "getBan"}));
     return false;
 };
 
@@ -37,7 +36,6 @@ getBan();
 setInterval(getBan, 1000);
 
 function banUser(userid){
-    var adminkey = $adminkey.val();
-    sendMessage(JSON.stringify({type: "users", action: "ban", adminkey: adminkey, banid: userid, description: 'test'}));
+    sendMessage(JSON.stringify({type: "users", action: "ban", banid: userid, description: 'test'}));
     return false;
 };

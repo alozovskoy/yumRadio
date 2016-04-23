@@ -1,6 +1,5 @@
 function videoGetQueue(){
-    var adminkey = $adminkey.val();
-    sendMessage(JSON.stringify({type: "video", action: "videoGetQueue", adminkey: adminkey}));
+    sendMessage(JSON.stringify({type: "video", action: "videoGetAdminQueue"}));
     return false;
 };
 
@@ -35,17 +34,11 @@ videoGetQueue();
 setInterval(videoGetQueue, 1000);
 
 function videoNext(){
-
-	var adminkey = $adminkey.val();
-	sendMessage(JSON.stringify({type: "video", action: "videoPlayNext", adminkey: adminkey}));	
+	sendMessage(JSON.stringify({type: "video", action: "videoPlayNext"}));	
     return false;
 };
 
 function videoDelete(videoID){
-    console.log(videoID);
-
-	var adminkey = $adminkey.val();
-	sendMessage(JSON.stringify({type: "video", action: "videoDelete", adminkey: adminkey, videoid: videoID}));
+	sendMessage(JSON.stringify({type: "video", action: "videoDelete", videoid: videoID}));
     return false;
-
 };
