@@ -141,9 +141,13 @@ class URIHandler(tornado.web.RequestHandler):
                                 return
                     elif self.request.uri in ['/ban', '/ban.html']:
                         ban = radio['ustack'].getBanUser(self.get_cookie('userid'))
-                        templVars['banDesc'] = ban['description']
-                        templVars['banDate'] = datetime.datetime.fromtimestamp(int(ban['time'])).strftime('%d.%m.%Y')
-                        templVars['banTime'] = datetime.datetime.fromtimestamp(int(ban['time'])).strftime('%H:%M:%S')
+                        if ban:
+                            banDesc = ban['description']
+                            banDate = datetime.datetime.fromtimestamp(int(ban['time'])).strftime('%d.%m.%Y')
+                            banTime = datetime.datetime.fromtimestamp(int(ban['time'])).strftime('%H:%M:%S')
+                            templVars['banText'] = 'Твоя учетка заблокирована, причина: %s.<br>Блокировка заканчивается %s в %s' % (banDesc.encode('utf-8'), banDate, banTime)
+                        else:
+                            templVars['banText'] = 'Твоя учетка активна'
                         self.set_status(200)
                         self.render(serverDir + '/templates/ban.html', **templVars)
                         return
