@@ -12,7 +12,7 @@ function wsOnUsers(data){
 	if ( Object.keys(users).length > 0 ){
 		for (var key = 0; key < Object.keys(users).length ; key++) {
 			var item = JSON.parse(users[key]);
-			tableData += '<tr><td>' + timeConverter(item['lasttime']) + '</td><td>' + item['names'] + '</td><td><button class="btn btn-block btn-warning" onclick="deleteUser(\'' + item['item'] + '\');">DEL</button></td><td><button class="btn btn-block btn-danger" onclick="banUser(\'' + item['item'] + '\'); videoDelete(\'' + item['item'] + '\');">Забанить</button></td></tr>'
+			tableData += '<tr><td>' + unixtimeToTime(item['lasttime']) + '</td><td>' + item['names'] + '</td><td><button class="btn btn-block btn-warning" onclick="deleteUser(\'' + item['item'] + '\');">DEL</button></td><td><button class="btn btn-block btn-danger" onclick="banUser(\'' + item['item'] + '\'); videoDelete(\'' + item['item'] + '\');">Забанить</button></td></tr>'
 		}
 	}
 	else {
@@ -28,5 +28,4 @@ function deleteUser(userid){
 }
 
 getUsers();
-setInterval(getUsers, 1000);
 
