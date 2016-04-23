@@ -140,6 +140,10 @@ class URIHandler(tornado.web.RequestHandler):
                                 self.redirect('/login')
                                 return
                     elif self.request.uri in ['/ban', '/ban.html']:
+                        ban = radio['ustack'].getBanUser(self.get_cookie('userid'))
+                        templVars['banDesc'] = ban['description']
+                        templVars['banDate'] = datetime.datetime.fromtimestamp(int(ban['time'])).strftime('%d.%m.%Y')
+                        templVars['banTime'] = datetime.datetime.fromtimestamp(int(ban['time'])).strftime('%H:%M:%S')
                         self.set_status(200)
                         self.render(serverDir + '/templates/ban.html', **templVars)
                         return
