@@ -27,15 +27,19 @@ function toFormattedTime(input, withHours, roundSeconds)
     return ((withHours) ? hoursString + ':' : '') + minutesString + ':' + secondsString;
 }
 
-function timeConverter(UNIX_timestamp){
-    var a = new Date(UNIX_timestamp * 1000);
+function unixtimeToTime(unixtime){
+    var time = new Date(unixtime * 1000);
     var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
-    var time = date + ' ' + month + ' ' + year + ' ' + ('0' + hour).slice(-2) + ':' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2) ;
-    return time;
+    var year = time.getFullYear();
+    var month = months[time.getMonth()];
+    var date = time.getDate();
+    var hour = time.getHours();
+    var min = time.getMinutes();
+    var sec = time.getSeconds();
+    return date + ' ' + month + ' ' + year + ' ' + ('0' + hour).slice(-2) + ':' + ('0' + min).slice(-2) + ':' + ('0' + sec).slice(-2) ;
+}
+
+function timeToUnixtime(time){
+    var parsedTime = new Date(time.replace(/(\d+) (\w+) (\d+) (\d+):(\d+):(\d+)/, '$2 $1, $3 $4:$5:$6'));
+    return (parsedTime.getTime() / 1000);
 }
