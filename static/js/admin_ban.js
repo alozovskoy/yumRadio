@@ -39,8 +39,6 @@ function wsOnBan(data){
 	$('#ban').html(tableHead + tableData + tableTail);
 };
 
-getBan();
-
 function banUser(userid){
     if ($('#banDesc').val()){
         description = $('#banDesc').val();
@@ -52,12 +50,14 @@ function banUser(userid){
     } else {
         sendMessage(JSON.stringify({type: "users", action: "ban", banid: userid, description: description}));
     }
-    
+    getUsers();
+    getBan();
     return false;
 };
 
 function unbanUser(userid){
     sendMessage(JSON.stringify({type: "users", action: "unban", unbanid: userid}));
+    getBan();
     return false;
 };
 

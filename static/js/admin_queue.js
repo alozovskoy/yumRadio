@@ -30,14 +30,14 @@ function wsOnQueue(data){
 	$('#queue').html(tableHead + tableData + tableTail);
 };
 
-videoGetQueue();
-
 function videoNext(){
-	sendMessage(JSON.stringify({type: "video", action: "videoPlayNext"}));	
+	sendMessage(JSON.stringify({type: "video", action: "videoPlayNext"}));
+    videoGetQueue();
     return false;
 };
 
 function videoDelete(videoID){
 	sendMessage(JSON.stringify({type: "video", action: "videoDelete", videoid: videoID}));
+    videoGetQueue();
     return false;
 };

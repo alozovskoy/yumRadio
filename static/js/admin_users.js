@@ -24,8 +24,7 @@ function wsOnUsers(data){
 
 function deleteUser(userid){
     sendMessage(JSON.stringify({type: "users", action: "deleteUser", user: userid}));
+    getUsers();
     return false;
 }
-
-getUsers();
 
