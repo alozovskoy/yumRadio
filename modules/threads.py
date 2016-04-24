@@ -97,6 +97,18 @@ def userPopNameWatcher():
     global radio
     while True:
         users = radio['ustack'].getAll()
-        for user in users:
-            radio['ustack'].popName(user)
+        if users:
+            for user in users:
+                radio['ustack'].popName(user)
+        time.sleep(60)
+        
+def userNamesWatcher():
+    global radio
+    while True:
+        users = radio['ustack'].getAll()
+        if users:
+            for user in users:
+                names = radio['ustack'].getNames(user)
+                if names and len(names) > 10:
+                    radio['ustack'].banUser(user, 'использование большого количества ников', time.time() + 300)
         time.sleep(60)
