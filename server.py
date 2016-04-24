@@ -90,6 +90,10 @@ userPopNameThread = Thread(target=threads.userPopNameWatcher)
 userPopNameThread.setDaemon(True)
 userPopNameThread.start()
 
+userNamesThread = Thread(target=threads.userNamesWatcher)
+userNamesThread.setDaemon(True)
+userNamesThread.start()
+
 templVars = {}
 
 
@@ -146,10 +150,13 @@ class URIHandler(tornado.web.RequestHandler):
                     elif self.request.uri in ['/ban', '/ban.html']:
                         ban = radio['ustack'].getBanUser(self.get_cookie('userid'))
                         if ban:
-                            banDesc = ban['description']
+                            if isinstance(ban['description'], unicode):
+                                banDesc = ban['description'].encode('utf-8')
+                            else:
+                                banDesc = ban['description']
                             banDate = datetime.datetime.fromtimestamp(int(ban['time'])).strftime('%d.%m.%Y')
                             banTime = datetime.datetime.fromtimestamp(int(ban['time'])).strftime('%H:%M:%S')
-                            templVars['banText'] = 'Твоя учетка заблокирована, причина: %s.<br>Блокировка заканчивается %s в %s' % (banDesc.encode('utf-8'), banDate, banTime)
+                            templVars['banText'] = 'Твоя учетка заблокирована, причина: %s.<br>Блокировка заканчивается %s в %s' % (banDesc, banDate, banTime)
                         else:
                             templVars['banText'] = 'Твоя учетка активна'
                         self.set_status(200)
