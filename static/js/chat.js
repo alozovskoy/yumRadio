@@ -21,11 +21,10 @@ function chatGetMessage(name, sender, msg){
     var message = '';
     var usernamecolor = '';
     var text = '';
-    
-    if (message.startsWith('http') && (message.endsWith('.png') || message.endsWith('.jpg') || message.endsWith('.gif'))){
-        message = '<a href="' + message + '"><img src="' + message + '" height="50px"></a>'
-    }
-    
+    var start = '';
+    var dots = ': ';
+    var end = '';
+         
     if (sender == 'system'){
         username = name;
         message = msg
@@ -40,9 +39,20 @@ function chatGetMessage(name, sender, msg){
         username = safe_tags_replace(name);
         message = safe_tags_replace(msg);
         usernamecolor = intToRGB(hashCode(username));
-    }
+    };
 
-    text = '<span style="color: #' + usernamecolor + ';">' + username + '</span>: ' + message;
+    if (message.startsWith('http') && (message.endsWith('.png') || message.endsWith('.jpg') || message.endsWith('.gif'))){
+        message = '<a href="' + message + '"><img src="' + message + '" height="50px"></a>'
+    };
+    
+    if (message.startsWith('/me')){
+        start = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+        dots = '';
+        message = '<span style="color: #' + usernamecolor + ';">' + message.substring(3);
+        end = '</span>'
+    };
+    
+    text = '<span style="color: #' + usernamecolor + ';">' + start + username + '</span>' + dots + message + end;
 	$('#chatframe').append('<p>' + text + '</p>');
 	document.getElementById("chatframe").scrollTop = document.getElementById("chatframe").scrollHeight;
 }
