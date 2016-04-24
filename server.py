@@ -34,6 +34,7 @@ logging.basicConfig(level=logging.DEBUG,
 
 auth.radio = radio
 userstack.radio = radio
+userstack.logging = logging
 
 auth.callbackURL = '%s://%s/login' % (radio['config'].get('server', 'protocol'), radio['config'].get('server', 'name'))
 
