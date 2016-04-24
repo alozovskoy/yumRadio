@@ -51,6 +51,11 @@ class Stack(object):
         else:
             return None
 
+    def getUsername(self, item):
+        if item in self.items.keys():
+            return self.items[item]['userid']
+        else:
+            return None
 
     def getTime(self, item):
         if item in self.items.keys():
@@ -129,8 +134,13 @@ class Stack(object):
         return json.dumps(data)
 
 
-    def pop(self):
+    def pop(self, disliked = False):
         global currenttime
+        global radio
+        if disliked:
+            userid = self.getUsername(self.current)
+            if userid:
+                radio['ustack'].appendDislike(userid, self.current)
         if not self.isEmptyMain():
             self.delete(self.current, False)
         if not self.isEmpty():
