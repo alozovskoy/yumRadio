@@ -60,7 +60,7 @@ def videoLikeWatcher():
             dislikeCount = float(len(opinions['dislike']))
             likeCount = float(int(userCount) + int(len(opinions['like'])))
             if (dislikeCount * 100 / likeCount) > 50:
-                radio['qstack'].pop()
+                radio['qstack'].pop(True)
         time.sleep(1)
 
 def userActivityWatcher():
