@@ -86,6 +86,7 @@ class Stack(object):
             self.items[str(item)] = {}
             self.items[str(item)]['names'] = []
             self.items[str(item)]['cookie'] = hashlib.sha512(str(uuid.uuid1())).hexdigest()
+            self.items[str(item)]['dislikes'] = []
             return self.items[str(item)]['cookie']
         else:
             return self.items[str(item)]['cookie']
@@ -99,6 +100,28 @@ class Stack(object):
                 return False
         else:
             return False
+
+    def appendDislike(self, item, videoid):
+        if item in self.items.keys():
+            if videoid not in self.items[str(item)]['dislikes']:
+                self.items[str(item)]['dislikes'].append(videoid)
+                return True
+            else:
+                return False
+        else:
+            return False
+
+    def popDislike(self, item):
+        if item in self.items.keys():
+            if self.items[item]['dislikes']:
+                self.items[item]['dislikes'].remove(self.items[item]['dislikes'][0])
+        return None
+
+    def getDislikes(self, item):
+        if item in self.items.keys():
+            return self.items[str(item)]['dislikes']
+        else:
+            return None
 
     def popName(self, item):
         if item in self.items.keys():
