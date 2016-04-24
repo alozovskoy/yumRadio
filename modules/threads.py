@@ -112,3 +112,23 @@ def userNamesWatcher():
                 if names and len(names) > 10:
                     radio['ustack'].banUser(user, 'использование большого количества ников', time.time() + 300)
         time.sleep(60)
+        
+def userDislikesWatcher():
+    global radio
+    while True:
+        users = radio['ustack'].getAll()
+        if users:
+            for user in users:
+                dislikes = names = radio['ustack'].getDislikes(user)
+                if dislikes and len(dislikes) > 10:
+                    radio['ustack'].banUser(user, 'плохая музыка... Очень плохая музыка! Раньше лучше было!', time.time() + 300)
+        time.sleep(60)
+
+def userPopDislikeWatcher():
+    global radio
+    while True:
+        users = radio['ustack'].getAll()
+        if users:
+            for user in users:
+                radio['ustack'].popDislike(user)
+        time.sleep(180)

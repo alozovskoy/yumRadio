@@ -54,6 +54,7 @@ radio['wsClients'] = []
 radio['sendMsg'] = sendMsg
 
 queuestack.sendMsg = sendMsg
+queuestack.radio = radio
 
 radio['qstack'] = queuestack.Stack()
 radio['qstack'].youtube = youtube
@@ -94,6 +95,15 @@ userPopNameThread.start()
 userNamesThread = Thread(target=threads.userNamesWatcher)
 userNamesThread.setDaemon(True)
 userNamesThread.start()
+
+userDislikesThread = Thread(target=threads.userDislikesWatcher)
+userDislikesThread.setDaemon(True)
+userDislikesThread.start()
+
+userPopDislikeThread = Thread(target=threads.userPopDislikeWatcher)
+userPopDislikeThread.setDaemon(True)
+userPopDislikeThread.start()
+
 
 templVars = {}
 
