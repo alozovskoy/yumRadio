@@ -71,6 +71,11 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                 'type':         'users',
                 'action':       'getNickNames',
                 'nicknames':    json.dumps(radio['ustack'].getNames(data['userid']))})
+        if data['action'] == 'getDislikes':
+            self.send_one({
+                'type':         'users',
+                'action':       'getDislikes',
+                'dislikes':    json.dumps(radio['ustack'].getDislikes(data['userid']))})
         return None
 
     def video(self, data):

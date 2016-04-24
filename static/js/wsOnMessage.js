@@ -97,8 +97,13 @@ ws.onmessage = function (evt) {
                 break
                 
                 case 'getNickNames':
-                        wsOnNicknames(data['nicknames']);
+                    wsOnNicknames(data['nicknames']);
                 break
+                
+                case 'getDislikes':
+                    wsOnDislikes(data['dislikes']);
+                break
+                
             }
             break
             

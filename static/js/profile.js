@@ -21,7 +21,6 @@ function userGetNicknames(){
 };
 
 function wsOnNicknames(data){ 
-            console.log(data);
 	var nicknames = JSON.parse(data);
 	var tableHead = '<table class="table table-striped table-condensed table-bordered"><thead><tr><th colspan="2">Используемые ники</th></tr></thead><tbody>';
 	var tableTail = '</tbody></table>';
@@ -40,3 +39,29 @@ function wsOnNicknames(data){
 
 userGetNicknames();
 setInterval(userGetNicknames, 1000);
+
+
+function userGetDislikes(){
+    sendMessage(JSON.stringify({type: "users", action: "getDislikes"}));
+    return false;
+};
+
+userGetDislikes();
+setInterval(userGetDislikes, 1000);
+
+function wsOnDislikes(data){
+	var dislikes = JSON.parse(data);
+	var tableHead = '<table class="table table-striped table-condensed table-bordered"><thead><tr><th colspan="2">Слитые треки</th></tr></thead><tbody>';
+	var tableTail = '</tbody></table>';
+    var tableData = '';
+	if ( dislikes.length > 0 ){
+		for (var key = 0; key < dislikes.length ; key++) {
+			tableData += '<tr><td>' + (key + 1) + '</td><td>' + dislikes[key]+ '</td></tr>'
+		}
+	}
+	else {
+		var tableData = '<tr><td colspan="2">Твои треки всем нравятся</td></tr>'
+	}
+	
+	$('#userDislikes').html(tableHead + tableData + tableTail);
+};
