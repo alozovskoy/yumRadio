@@ -92,3 +92,11 @@ def configWatcher():
     while True:
         radio['config'].load()
         time.sleep(60)
+
+def userPopNameWatcher():
+    global radio
+    while True:
+        users = radio['ustack'].getAll()
+        for user in users:
+            radio['ustack'].popName(user)
+        time.sleep(60)

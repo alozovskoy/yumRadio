@@ -100,6 +100,12 @@ class Stack(object):
         else:
             return False
 
+    def popName(self, item):
+        if item in self.items.keys():
+            if self.items[item]['names']:
+                self.items[item]['names'].remove(self.items[item]['names'][0])
+        return None
+
     def size(self):
         return len(self.items)
         

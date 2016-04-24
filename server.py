@@ -86,6 +86,10 @@ configThread = Thread(target=threads.configWatcher)
 configThread.setDaemon(True)
 configThread.start()
 
+userPopNameThread = Thread(target=threads.userPopNameWatcher)
+userPopNameThread.setDaemon(True)
+userPopNameThread.start()
+
 templVars = {}
 
 
