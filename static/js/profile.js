@@ -56,7 +56,7 @@ function wsOnDislikes(data){
     var tableData = '';
 	if ( dislikes.length > 0 ){
 		for (var key = 0; key < dislikes.length ; key++) {
-			tableData += '<tr><td>' + (key + 1) + '</td><td>' + dislikes[key]+ '</td></tr>'
+			tableData += '<tr><td>' + (key + 1) + '</td><td><a href="https://www.youtube.com/watch?v=' + dislikes[key]+ '">https://www.youtube.com/watch?v=' + dislikes[key]+ '</a></td></tr>'
 		}
 	}
 	else {
