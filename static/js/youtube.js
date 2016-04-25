@@ -144,6 +144,7 @@ function scrollTitle(){
             
         } else {
             
+            $('#currentVideoDescription').text('Сейчас играет: ');
             $('#currentVideoTitle').text(currentVideoTitle);
             
         };
