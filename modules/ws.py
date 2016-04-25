@@ -149,8 +149,7 @@ class WebSocketHandler(tornado.websocket.WebSocketHandler):
                         'action': 'getQueue',
                         'queue': radio['qstack'].get(True)})
                 if data['action'] == 'videoPlayNext':
-                    if radio['qstack'].size() > 0:
-                        radio['qstack'].pop()
+                    radio['qstack'].pop()
                 if data['action'] == 'videoDelete':
                     radio['qstack'].delete(data['videoid'])
                     
