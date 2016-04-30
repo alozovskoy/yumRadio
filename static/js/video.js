@@ -14,10 +14,4 @@ function videoGetCurrent(){
     return false;
 };
 
-function videoGetNext(){
-    sendMessage(JSON.stringify({type: "video", action: "videoGetNext"}));
-    return false;
-};
-
 setInterval(videoGetCurrent, 500);
-setInterval(videoGetNext, 1000);
