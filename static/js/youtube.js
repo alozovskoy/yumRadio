@@ -42,22 +42,22 @@ function onPlayerStateChange(event) {
 }
 
 function StartVideo(){
+  
+    function checkCurrent(){
 
-    function nowPlayTitle(){
-        currentVideoTitle = player.getVideoData().title;
-        return false;
-    };
-
-    
-    function checkCurrentTime(){
         if ( currentVideoOnClient != currentVideoOnServer ){
+            
             currentTimeOnClient = currentTimeOnServer;
             currentVideoOnClient = currentVideoOnServer;
-            player.loadVideoById({'videoId': currentVideoOnClient, 'startSeconds': currentTimeOnClient, 'suggestedQuality': "large"})
+            
+            player.loadVideoById({
+                'videoId': currentVideoOnClient,
+                'startSeconds': currentTimeOnClient,
+                'suggestedQuality': "large"})
+
         }
-        return false;
     }
-    
+
     function nowPlay(){
         
         if (currentVideoOnClient){
@@ -89,18 +89,12 @@ function StartVideo(){
         $('#playProgress').css('width', percent + '%');
         return false;
     };
-    
-    function checkCurrentVideo(){
-        if (currentVideoOnClient != currentVideoOnServer){
-            player.loadVideoById({
-                            'videoId': currentVideoOnServer, 
-                            'startSeconds': currentTimeOnServer, 
-                            'suggestedQuality': "large"
-                            });
-            };
-            currentVideoOnClient = currentVideoOnServer;
-            currentTimeOnClient = currentTimeOnServer;
-    }
+
+    function nowPlayTitle(){
+        currentVideoTitle = player.getVideoData().title;
+        return false;
+    };
+
     
     function getPlayerHeight(){
         var height = $('#player').height();
@@ -111,8 +105,7 @@ function StartVideo(){
 
 setInterval(nowPlay, 200);
 setInterval(nowPlayTitle, 1000);
-setInterval(checkCurrentVideo, 1000);
-setInterval(checkCurrentTime, 1000);
+setInterval(checkCurrent, 1000);
 setInterval(getPlayerHeight, 1000);
 }
 
