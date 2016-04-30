@@ -1,7 +1,6 @@
 currentVideoOnClient = '';
-currentTimeOnClient = '';
 currentVideoOnServer = '';
-currentTimeOnServer = '';
+currentTime = 0;
 
 playerHeight = '';
 
@@ -26,7 +25,7 @@ function onYouTubeIframeAPIReady() {
 			modestbranding: 1,
 			rel:            0,
 			showinfo:       0,
-			start:          currentTimeOnClient,
+			start:          currentTime,
 		},
 		events: {
         'onStateChange' :   onPlayerStateChange,
@@ -47,12 +46,11 @@ function StartVideo(){
 
         if ( currentVideoOnClient != currentVideoOnServer ){
             
-            currentTimeOnClient = currentTimeOnServer;
             currentVideoOnClient = currentVideoOnServer;
             
             player.loadVideoById({
                 'videoId': currentVideoOnClient,
-                'startSeconds': currentTimeOnClient,
+                'startSeconds': currentTime,
                 'suggestedQuality': "large"})
 
         }
@@ -60,41 +58,36 @@ function StartVideo(){
 
     function nowPlay(){
         
+        var percent = 0;
+        var currentPlayTime = 0;
+        var totalPlayTime = 0;
+        var hours;
+        
         if (currentVideoOnClient){
-        currentTimeOnClient = parseInt(player.getCurrentTime());
+            currentPlayTime = parseInt(player.getCurrentTime());
+            totalPlayTime = parseInt(player.getDuration())
         } else {
-            currentTimeOnClient = 0;
+            currentPlayTime = 0;
+            totalPlayTime = 0;
         }
-        
-        var currentTime = currentTimeOnClient;
-        if (currentTimeOnClient > 3600){
-            hoursClient = true;
-        } else {
-            hoursClient = false;
-        }
-        
-        totalTime = parseInt(player.getDuration())
-        
-        if (totalTime > 3600){
-            hoursTotal = true;
-        } else {
-            hoursTotal = false;
-        }
-        if (currentTime != 0){
-            var percent = parseInt(currentTime / totalTime * 100 );
+
+        if (currentPlayTime != 0){
+            var percent = parseInt(currentPlayTime / totalPlayTime * 100 );
+            
+            if ((currentPlayTime > 3600) || (totalPlayTime > 3600)){
+                hours = true;
+            } else {
+                hours = false;
+            }
+            
         } else {
             percent = 0;
-        }
-        $('#currentTime').text(toFormattedTime(currentTime, hoursClient, false) + ' / ' + toFormattedTime(totalTime, hoursTotal, false));
+        }        
+
+        $('#currentTime').text(toFormattedTime(currentPlayTime, hours, false) + ' / ' + toFormattedTime(totalPlayTime, hours, false));
         $('#playProgress').css('width', percent + '%');
-        return false;
-    };
 
-    function nowPlayTitle(){
-        currentVideoTitle = player.getVideoData().title;
-        return false;
     };
-
     
     function getPlayerHeight(){
         var height = $('#player').height();
@@ -104,7 +97,6 @@ function StartVideo(){
     };
 
 setInterval(nowPlay, 200);
-setInterval(nowPlayTitle, 1000);
 setInterval(checkCurrent, 1000);
 setInterval(getPlayerHeight, 1000);
 }
@@ -117,7 +109,9 @@ function scrollTitle(){
     var direction = 'inc';
 
     function scroll(){
-        
+
+        currentVideoTitle = player.getVideoData().title;
+    
         if (currentVideoTitle.length > max){
             
             $('#currentVideoDescription').text('Сейчас играет: ');

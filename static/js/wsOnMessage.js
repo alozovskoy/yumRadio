@@ -42,7 +42,7 @@ ws.onmessage = function (evt) {
 				case 'currentvideo':
 					$('#current').text(data['videoid'])
 					currentVideoOnServer = data['videoid']
-					currentTimeOnServer = data['time']
+					currentTime = data['time']
 					break				
 					
 				case 'getQueue':
