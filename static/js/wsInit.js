@@ -24,5 +24,5 @@ function waitForSocketConnection(socket, callback){
             } else {
                 waitForSocketConnection(socket, callback);
             }
-        }, 5);
+        }, 100);
 }
