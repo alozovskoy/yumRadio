@@ -2,33 +2,30 @@
 {% block scripts %}
 <script type="text/javascript">
 
-$.getScripts = function (files){
-    var queue = $.Deferred().resolve();
-    $.ajaxSetup({
-        cache: true
-    });
-    $.each(files, function (i, src){
-        queue = queue.pipe(function (){
-            return  $.getScripts[src] || ($.getScripts[src] = $.getScript(src));
-        });
-    });
-    return  queue;
+function addScripts(scriptsList){
+    
+    for (var i = 0; i < scriptsList.length; i++){
+        var script = document.createElement('script');
+        script.src = scriptsList[i];
+        script.async = false;
+        document.head.appendChild(script);
+    }
 }
 
 var jsList = [
-    "/static/js/reconnecting-websocket.js", 
-    "/static/js/wsInit.js", 
+    "/static/js/reconnecting-websocket.js",
+    "/static/js/wsInit.js",
+    "/static/js/wsSendMessage.js",
     "/static/js/misc.js",
     "/static/js/tagreplace.js",
     "/static/js/cookie.js",
-    "/static/js/notify.js", 
+    "/static/js/notify.js",
     "/static/js/alert.js", 
-    "/static/js/wsSendMessage.js", 
+    "/static/js/profile.js",
     "/static/js/wsOnMessage.js", 
-    "/static/js/profile.js", 
 ];
 
-$.getScripts(jsList);
+addScripts(jsList);
 
 </script>
 {% end %}
